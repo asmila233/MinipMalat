@@ -12,7 +12,7 @@ public class Plane implements Geometry{
 
     @Override
     public Vector getNormal(Point3D p0) {
-        return norma;
+        return norma.normalize();
     }
 
     public Plane(Point3D A, Point3D B, Point3D C)

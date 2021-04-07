@@ -11,7 +11,12 @@ public class Tube implements Geometry{
 
     @Override
     public Vector getNormal(Point3D po) {
-        return null;
+        var p0= axisRay.getPo();
+        var v0= axisRay.getDir();
+        var v = po.subtract(p0);
+        var t= v.dotProduct(v0);
+        var p1 = p0.add(v0.scale(t));
+        return po.subtract(p1).normalize();
     }
 
     public Tube(Ray axisRay, double radious) {

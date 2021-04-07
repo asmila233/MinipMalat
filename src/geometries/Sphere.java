@@ -15,7 +15,8 @@ public class Sphere implements Geometry {
 
     @Override
     public Vector getNormal(Point3D po) {
-        return null;
+        // זה פשוט הוקטור מהמרכז למעטפת
+        return new Vector(po.subtract(center).getHead()).normalize();
     }
 
     public Point3D getCenter() {

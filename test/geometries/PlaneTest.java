@@ -15,7 +15,7 @@ class PlaneTest {
         var v= new Plane(new Point3D(0,0,0),new Point3D(1,0,0),new Point3D(0,0,1)).getNormal();
         if (v.length()!=1)
             fail("the constructor don't normalize the normal");
-        if (!v.equals(new Vector(0,1,0)))
+        if (!v.equals(new Vector(0,-1,0))&&!v.equals(new Vector(0,1,0)))
             fail("wrong normal in constructor");
 
         // =============== Boundary Values Tests ==================
@@ -29,7 +29,7 @@ class PlaneTest {
 
         // TC11: same line to the points
         try {
-            new Plane(new Point3D(0,1,1),new Point3D(0,1,0),new Point3D(0,0,1));
+            new Plane(new Point3D(0,0,0),new Point3D(0,0,1),new Point3D(0,0,2));
             fail("no Exception in same lines");
         } catch (Exception e) {
         }
@@ -43,7 +43,7 @@ class PlaneTest {
         var v= P.getNormal(new Point3D(0,0,0));
         if (v.length()!=1)
             fail("the result must be normalize");
-        if (!v.equals(new Vector(1,0,0))||!v.equals(new Vector(-1,0,0)))
+        if (!v.equals(new Vector(1,0,0))&&!v.equals(new Vector(-1,0,0)))
             fail("wrong normal");
     }
 }

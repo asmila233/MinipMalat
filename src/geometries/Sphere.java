@@ -9,8 +9,8 @@ public class Sphere implements Geometry {
     protected double radious;
 
     public Sphere(Point3D center, double radious) {
-        center = center;
-        radious = radious;
+        this.center = new Point3D(center.getX(),center.getY(),center.getZ());
+        this.radious = radious;
     }
 
     @Override

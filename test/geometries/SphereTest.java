@@ -13,7 +13,8 @@ class SphereTest {
         // ============ Equivalence Partitions Tests ==============
         // TC10: simple
         Sphere s = new Sphere(new Point3D(0,0,0),2);
-        var v= s.getNormal(new Point3D(0,0,2));
+        var p= new Point3D(0,0,2);
+        var v= s.getNormal(p);
         if (v.length()!=1)
             fail("the result must be normalize");
         if (!v.equals(new Vector(0,0,1)))

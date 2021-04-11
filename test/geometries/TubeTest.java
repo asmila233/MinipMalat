@@ -21,16 +21,16 @@ class TubeTest {
             fail("wrong normal");
         // TC02: basis 1
         var v2= t.getNormal(new Point3D(0,0,0.5));
-        if (v1.length()!=1)
+        if (v2.length()!=1)
             fail("the result must be normalize");
-        if (!v1.equals(new Vector(-1,0,0)))
+        if (!v2.equals(new Vector(-1,0,0)))
             fail("wrong normal");
         // =============== Boundary Values Tests ==================
         // TC11: middle
         var v3= t.getNormal(new Point3D(0,0,0));
-        if (v1.length()!=1)
+        if (v3.length()!=1)
             fail("the result must be normalize");
-        if (!v1.equals(new Vector(-1,0,0)))
+        if (!v3.equals(new Vector(-1,0,0)))
             fail("wrong normal");
     }
 }

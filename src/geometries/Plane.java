@@ -19,9 +19,7 @@ public class Plane implements Geometry{
     {
         Vector first = A.subtract(B);
         Vector second = B.subtract(C);
-
-        norma =  first.crossProduct(second);
-
+        norma =  first.crossProduct(second).normalize();
         p0 = B;
     }
     public Plane(Point3D A, Vector norm)

@@ -2,7 +2,10 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
+
+import java.util.List;
 
 public class Tube implements Geometry{
     protected Ray axisRay;
@@ -17,7 +20,7 @@ public class Tube implements Geometry{
             return v0.scale(-1).normalize();
         var v = po.subtract(p0);
         var t= v.dotProduct(v0);
-        if (t==0){
+        if (Util.isZero(t)){
             return v0.scale(-1).normalize();
         }
         var p1 = p0.add(v0.scale(t));
@@ -43,5 +46,10 @@ public class Tube implements Geometry{
                 "axisRay=" + axisRay +
                 ", radious=" + radious +
                 '}';
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray R) {
+        return null;
     }
 }

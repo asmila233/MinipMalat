@@ -1,9 +1,11 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 import java.awt.*;
+import java.util.List;
 
 public class Plane implements Geometry{
     protected Point3D p0;
@@ -43,5 +45,10 @@ public class Plane implements Geometry{
                 "p0=" + p0 +
                 ", norma=" + norma +
                 '}';
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray R) {
+        return null;
     }
 }

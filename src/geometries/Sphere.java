@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 public class Sphere implements Geometry {
 
@@ -33,5 +36,10 @@ public class Sphere implements Geometry {
                 "center=" + center +
                 ", radious=" + radious +
                 '}';
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray R) {
+        return null;
     }
 }

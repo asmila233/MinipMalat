@@ -88,10 +88,6 @@ public class Polygon implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray R) {
-        Vector v = R.getDir();
-        if (Util.isZero(v.dotProduct(plane.getNormal())))
-        {
-            // This ray is either contained or parallel to the plane
-        }
+        return null;
     }
 }

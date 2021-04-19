@@ -7,14 +7,23 @@ public class Ray {
     Vector dir;
 
     public Ray(Point3D po, Vector vec) {
-        var nirmol = (vec.head.y.coord*vec.head.y.coord);
-        nirmol += (vec.head.x.coord*vec.head.x.coord);
-        nirmol += (vec.head.y.coord*vec.head.y.coord);
+        var nirmol = (vec.head.y.coord * vec.head.y.coord);
+        nirmol += (vec.head.x.coord * vec.head.x.coord);
+        nirmol += (vec.head.y.coord * vec.head.y.coord);
         nirmol = Math.sqrt(nirmol);
 
-        dir = new Vector((vec.head.x.coord)/nirmol,(vec.head.y.coord)/nirmol,(vec.head.z.coord)/nirmol);
+        dir = new Vector((vec.head.x.coord) / nirmol, (vec.head.y.coord) / nirmol, (vec.head.z.coord) / nirmol);
         this.po = po;
     }
+
+    public Point3D getPoint(double t)
+    {
+        if (t<0)
+            throw new IllegalArgumentException("negative number");
+        var x = po.add(dir.scale(t));
+        return x;
+    }
+
 
     @Override
     public boolean equals(Object o) {

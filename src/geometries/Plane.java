@@ -2,9 +2,11 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Plane implements Geometry{
@@ -49,6 +51,31 @@ public class Plane implements Geometry{
 
     @Override
     public List<Point3D> findIntersections(Ray R) {
-        return null;
+        Vector v = R.getDir();
+        Point3D p = R.getPo();
+        var dot = v.dotProduct(norma);
+        if (Util.isZero(dot))
+        {
+            // This ray is either contained or parallel to the plane
+            return null;
+            // we cant return enfants points
+        }
+        else if (p.equals(p0))
+        {
+                 List<Point3D> list = new ArrayList<Point3D>();
+                 list.add(p0);
+                 return list;
+        }
+        else
+        {
+              var mone = p0.subtract(p).dotProduct(v);
+              List<Point3D> list = new ArrayList<Point3D>();
+              var t = mone/dot;
+              if (t>=0)
+                  list.add(R.getPoint(t));
+              else
+                  return null;
+              return list;
+        }
     }
 }

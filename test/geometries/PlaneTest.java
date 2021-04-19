@@ -46,4 +46,10 @@ class PlaneTest {
         if (!v.equals(new Vector(1,0,0))&&!v.equals(new Vector(-1,0,0)))
             fail("wrong normal");
     }
+
+    @Test
+    void testFindIntersections()
+    {
+
+    }
 }

@@ -85,10 +85,7 @@ return Math.sqrt(lengthSquared());
     }
 
     public Vector normalize () {
-        var nirmol = (head.y.coord*head.y.coord);
-        nirmol += (head.x.coord*head.x.coord);
-        nirmol += (head.z.coord*head.z.coord);
-        nirmol = Math.sqrt(nirmol);
+        var nirmol = this.length();
 
         head = new Point3D(head.x.coord/nirmol,head.y.coord/nirmol,head.z.coord/nirmol);
 

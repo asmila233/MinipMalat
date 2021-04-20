@@ -2,6 +2,7 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +20,11 @@ class SphereTest {
             fail("the result must be normalize");
         if (!v.equals(new Vector(0,0,1)))
             fail("wrong normal");
+
+    }
+    @Test
+    void testFindIntersections(Ray R){
+
 
     }
 }

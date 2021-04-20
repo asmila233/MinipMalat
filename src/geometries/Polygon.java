@@ -88,6 +88,33 @@ public class Polygon implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray R) {
+        if (vertices.size()==3)
+        {
+            var x = plane.findIntersections(R);
+            Vector u1,u2,u3;
+            try {
+                u1= vertices.get(0).subtract(R.getPo());
+                u2= vertices.get(1).subtract(R.getPo());
+                u3= vertices.get(2).subtract(R.getPo());
+            }
+            catch (Exception ex)
+            {
+                // start in the triangle
+                return null;
+            }
+            Vector V1,V2,V3;
+            V1= u1.crossProduct(u2).normalize();
+            V2= u2.crossProduct(u3).normalize();
+            V3= u3.crossProduct(u1).normalize();
+
+            double d1,d2,d3;
+            d1= Util.alignZero(V1.dotProduct(R.getDir()));
+            d2= Util.alignZero(V2.dotProduct(R.getDir()));
+            d3= Util.alignZero(V3.dotProduct(R.getDir()));
+            if ((d1>0&&d2>0&&d3>0)||(d1<0&&d2<0&&d3<0))
+                return x;
+            return null;
+        }
         return null;
     }
 }

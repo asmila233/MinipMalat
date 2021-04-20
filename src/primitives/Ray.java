@@ -7,10 +7,7 @@ public class Ray {
     Vector dir;
 
     public Ray(Point3D po, Vector vec) {
-        var nirmol = (vec.head.y.coord * vec.head.y.coord);
-        nirmol += (vec.head.x.coord * vec.head.x.coord);
-        nirmol += (vec.head.y.coord * vec.head.y.coord);
-        nirmol = Math.sqrt(nirmol);
+        var nirmol = vec.length();
 
         dir = new Vector((vec.head.x.coord) / nirmol, (vec.head.y.coord) / nirmol, (vec.head.z.coord) / nirmol);
         this.po = po;

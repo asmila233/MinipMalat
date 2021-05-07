@@ -27,11 +27,11 @@ class GeometriesTest {
         // =============== Boundary Values Tests ==================
         // TC10: empty
         geo= new Geometries();
-        assertEquals(0,geo.findIntersections(new Ray(new Point3D(2,2,2),new Vector(1,0,0))).size(),"empty must return zero");
+        assertNull(geo.findIntersections(new Ray(new Point3D(2,2,2),new Vector(1,0,0))),"empty must return zero");
         // TC11: no cutting in space
         geo= new Geometries();
         geo.add(p1);
-        assertEquals(0,geo.findIntersections(new Ray(new Point3D(4,4,4),new Vector(1,0,0))).size(),"empty must return zero");
+        assertNull(geo.findIntersections(new Ray(new Point3D(4,4,4),new Vector(1,0,0))),"empty must return zero");
         // TC12: one cutting in space
         geo= new Geometries();
         geo.add(p1);geo.add(p2);geo.add(p3);

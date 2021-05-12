@@ -73,8 +73,28 @@ public class Camera {
 
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i)
     {
-        ;
-        return null;
+        //--------
+        //do due the algorithm in "Recitation 4 - Camera, Ray Casting - upd. 23/04/21,page 12" at model
+        //--------
+
+        //Image center
+        Point3D Pc= spot.add(to.scale(distance));
+
+        //Ratio (pixel width & height)
+        float Ry= (float) height/ nY;
+        float Rx= (float) width/ nX;
+
+        //Pixel[i,j] center
+
+        float Yi = -(i-(nY-1)/2)*Ry;
+        float Xj = (j-(nX-1)/2)*Rx;
+        Point3D pIj= Pc.add(right.scale(Xj)).add(up.scale(Yi));
+
+        //𝒅𝒊𝒓𝒆𝒄𝒕𝒊𝒐𝒏
+        Vector dirOFray= pIj.subtract(spot);
+
+        //return ray
+        return  new Ray(spot,dirOFray);
     }
 
 }

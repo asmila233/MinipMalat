@@ -16,7 +16,7 @@ public class Camera {
         this.spot= spot;
         this.up = up;
         this.to = to;
-        if (Util.isZero(up.dotProduct(to)))
+        if (!Util.isZero(up.dotProduct(to)))
             throw new IllegalArgumentException("illegal parameters");
         right = to.crossProduct(up).normalize();
     }

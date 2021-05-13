@@ -12,7 +12,7 @@ public class Camera {
     private Vector to;
     private Vector right;
 
-    public Camera(    Point3D spot,Vector up, Vector to) {
+    public Camera(    Point3D spot,Vector to, Vector up) {
         this.spot= spot;
         this.up = up;
         this.to = to;
@@ -46,7 +46,7 @@ public class Camera {
     public Camera setViewPlaneSize(double width, double height)
     {
         this.width = width;
-        this.height=height;
+        this.height = height;
         return this;
     }
 
@@ -86,9 +86,13 @@ public class Camera {
 
         //Pixel[i,j] center
 
-        float Yi = -(i-(nY-1)/2)*Ry;
-        float Xj = (j-(nX-1)/2)*Rx;
-        Point3D pIj= Pc.add(right.scale(Xj)).add(up.scale(Yi));
+        float Yi = (float) -(i-(float)(nY-1)/2)*Ry;
+        float Xj = (float) (j-(float)(nX-1)/2)*Rx;
+        Point3D pIj= Pc;
+        if (!Util.isZero(Xj))
+             pIj= pIj.add(right.scale(Xj));
+        if (!Util.isZero(Yi))
+            pIj= pIj.add(up.scale(Yi));
 
         //𝒅𝒊𝒓𝒆𝒄𝒕𝒊𝒐𝒏
         Vector dirOFray= pIj.subtract(spot);

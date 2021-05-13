@@ -50,15 +50,17 @@ public class Plane implements Geometry{
 
     @Override
     public List<Point3D> findIntersections(Ray R) {
-        Vector p0 = new Vector(this.p0);
-        Vector Q0 = new Vector(R.getPo());
+
         // preventing a 0 vector to be produced
-        if ((p0.getHead().getX().getCoord()) == (Q0.getHead().getX().getCoord()) &&
-                (p0.getHead().getY().getCoord() == Q0.getHead().getY().getCoord())&&
-                (p0.getHead().getZ().getCoord() == Q0.getHead().getZ().getCoord())) {
+        if ((this.p0.getX().getCoord()) == (R.getPo().getX().getCoord()) &&
+                (this.p0.getY().getCoord()) == (R.getPo().getY().getCoord())&&
+                (this.p0.getZ().getCoord()) == (R.getPo().getZ().getCoord())) {
             return null;
         }
-        Vector sub = p0.subtract(Q0);
+        Vector sub = new Vector(this.p0.getX().getCoord() - R.getPo().getX().getCoord(),
+                this.p0.getY().getCoord() - R.getPo().getY().getCoord(),
+                this.p0.getZ().getCoord() - R.getPo().getZ().getCoord());
+
         Vector N = new Vector(this.getNormal().getHead());
 
         double t = (N.dotProduct(sub) / N.dotProduct(R.getDir()));
@@ -76,4 +78,5 @@ public class Plane implements Geometry{
         }
         return null;
     }
+
 }

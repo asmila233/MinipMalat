@@ -3,12 +3,17 @@ package elements;
 import primitives.Color;
 
 public class AmbientLight {
-    //fileds
-    Color Ia;
-    double Ka;
+    Color intensity ;
+
+    public AmbientLight() {
+        this.intensity = Color.BLACK;
+    }
 
     public AmbientLight(Color ia, double ka) {
-        Ia = ia;
-        Ka = ka;
+        intensity = ia.scale(ka);
+    }
+
+    public Color getIntensity() {
+        return intensity;
     }
 }

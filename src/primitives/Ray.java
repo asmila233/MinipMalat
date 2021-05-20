@@ -1,5 +1,9 @@
 package primitives;
 
+import geometries.Polygon;
+
+
+import java.util.List;
 import java.util.Objects;
 
 public class Ray {
@@ -36,6 +40,21 @@ public class Ray {
                 "po=" + po +
                 ", dir=" + dir +
                 '}';
+    }
+
+    public Point3D findClosestPoint(List<Point3D> list){
+        if(list.size() == 0)
+            return null;
+        double check = (po.distance(list.get(0)));
+        Point3D result = list.get(0);
+
+        for (int i = 1; i < list.size(); i++) {
+            if(po.distance(list.get(i)) < check){
+                check = po.distance(list.get(i));
+                result = list.get(i);
+            }
+        }
+        return result;
     }
 
     public Point3D getPo() {

@@ -27,7 +27,9 @@ public class Render  {
         return this;
     }
 
-    //metods
+    /**
+     *     creates a ray for each pixel and checks what color there is on that pixel and writes it to the image
+     */
     public void renderImage()
     {
         if (image ==null||cam==null||rayTracerBasic==null)

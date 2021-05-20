@@ -49,6 +49,11 @@ public class Plane extends Geometry{
                 '}';
     }
 
+    /**
+     * returns a list of all the intersections with the plane and the given ray
+     * @param R
+     * @return
+     */
     @Override
     public List<Point3D> findIntersections(Ray R) {
 

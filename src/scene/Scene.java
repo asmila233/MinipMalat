@@ -6,6 +6,19 @@ import primitives.Color;
 
 public class Scene {
     String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public Color getBackground() {
+        return background;
+    }
+
+    public AmbientLight getAmbientLight() {
+        return ambientLight;
+    }
+
     Color background;
     AmbientLight ambientLight;
     public Geometries geometries;

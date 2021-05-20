@@ -1,9 +1,11 @@
-package test.elements;
+package renderer;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import elements.*;
 import geometries.*;
+import org.junit.jupiter.api.Test;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
@@ -13,7 +15,7 @@ import scene.Scene;
  *
  * @author Dan
  */
-public class RenderTests {
+class RenderTests {
     private Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
             .setDistance(100) //
             .setViewPlaneSize(500, 500);
@@ -29,21 +31,21 @@ public class RenderTests {
                 .setBackground(new Color(75, 127, 90));
 
         scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50));
-                     // right
+        // right
         scene.geometries.add(new Polygon(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100))); // up
-                // left
+        // left
         scene.geometries.add(new Polygon(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100))); // up
-                // right
+        // right
         scene.geometries.add(new Polygon(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100))); // down
-                // left
+        // left
         scene.geometries.add(new Polygon(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100))); // down
 
 
         ImageWriter imageWriter = new ImageWriter("base render test", 1000, 1000);
         Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));
+                .setImage(imageWriter) //
+                .setCam(camera) //
+                .setRayTracerBasic(new RayTracerBasic(scene));
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
@@ -53,22 +55,6 @@ public class RenderTests {
     /**
      * Test for XML based scene - for bonus
      */
-    @Test
-    public void basicRenderXml() {
-        Scene scene = new Scene("XML Test scene");
-        // enter XML file name and parse from XML file into scene object
-        // ...
-
-        ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));
-
-        render.renderImage();
-        render.printGrid(100, new Color(java.awt.Color.YELLOW));
-        render.writeToImage();
-    }
 
     // For stage 6 - please disregard in stage 5
     /**
@@ -81,20 +67,20 @@ public class RenderTests {
                 .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2)); //
 
         scene.geometries.add(new Sphere( new Point3D(0, 0, -100),50) //
-                        .setEmission(new Color(java.awt.Color.CYAN))); //
+                .setEmission(new Color(java.awt.Color.CYAN))); //
         scene.geometries.add(new Polygon(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)) // up left
-                        .setEmission(new Color(java.awt.Color.GREEN)));
+                .setEmission(new Color(java.awt.Color.GREEN)));
         scene.geometries.add(new Polygon(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100))); // up right
         scene.geometries.add(new Polygon(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)) // down left
-                        .setEmission(new Color(java.awt.Color.RED)));
+                .setEmission(new Color(java.awt.Color.RED)));
         scene.geometries.add(new Polygon(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100)) // down right
-                        .setEmission(new Color(java.awt.Color.BLUE)));
+                .setEmission(new Color(java.awt.Color.BLUE)));
 
         ImageWriter imageWriter = new ImageWriter("color render test", 1000, 1000);
         Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));
+                .setImage(imageWriter) //
+                .setCam(camera) //
+                .setRayTracerBasic(new RayTracerBasic(scene));
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.WHITE));

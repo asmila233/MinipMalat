@@ -13,6 +13,10 @@ public abstract class Geometry implements Intersectable {
         return emission;
     }
 
-    public abstract Intersectable setEmission(Color color);
+    public Intersectable setEmission(Color color)
+    {
+        emission=color;
+        return this;
+    };
 }
 

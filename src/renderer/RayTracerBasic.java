@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.Color;
+import primitives.Point3D;
 import primitives.Ray;
 import scene.Scene;
 
@@ -15,6 +16,15 @@ public class RayTracerBasic extends RayTracerBase {
 
     @Override
     public Color traceRay(Ray ray) {
-        return null;
+
+        var point3DS = scene.geometries.findIntersections(ray);
+        if(point3DS==null)
+            return scene.getBackground();
+        var close= ray.findClosestPoint(point3DS);
+        return calcColor(close);
+    }
+    private Color calcColor (Point3D p)
+    {
+        return scene.getAmbientLight().getIntensity();
     }
 }

@@ -8,7 +8,7 @@ import primitives.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
     protected Point3D center;
     protected double radious;

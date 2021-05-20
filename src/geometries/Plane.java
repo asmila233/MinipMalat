@@ -8,9 +8,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plane implements Geometry{
+public class Plane extends Geometry{
     protected Point3D p0;
     protected Vector norma;
+
 
 
     @Override

@@ -10,6 +10,11 @@ public class Ray {
     Point3D po;
     Vector dir;
 
+    /**
+     * constructor, puts the normalize vector and a point in the ray
+     * @param po
+     * @param vec
+     */
     public Ray(Point3D po, Vector vec) {
         var nirmol = vec.length();
 
@@ -17,6 +22,11 @@ public class Ray {
         this.po = po;
     }
 
+    /**
+     * returns the multipication of a point with a number
+     * @param t
+     * @return
+     */
     public Point3D getPoint(double t)
     {
         if (t<0)
@@ -42,6 +52,11 @@ public class Ray {
                 '}';
     }
 
+    /**
+     * finds the closest point out of a list of points
+     * @param list
+     * @return
+     */
     public Point3D findClosestPoint(List<Point3D> list){
         if(list.size() == 0)
             return null;

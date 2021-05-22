@@ -14,6 +14,11 @@ public class RayTracerBasic extends RayTracerBase {
         super(scene);
     }
 
+    /**
+     *check what intersectins there are from the scene, and if there are not any of them retuen the color of the background
+     * @param ray
+     * @return
+     */
     @Override
     public Color traceRay(Ray ray) {
 

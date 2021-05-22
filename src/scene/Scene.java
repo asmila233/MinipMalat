@@ -6,7 +6,21 @@ import primitives.Color;
 
 public class Scene {
     String name;
+    Color background;
+    AmbientLight ambientLight;
+    public Geometries geometries;
 
+    /**
+     * basic constructor with the name only
+     * @param name
+     */
+    public Scene(String name) {
+        this.name = name;
+
+        geometries = new Geometries();
+    }
+
+    // setters and getters
     public String getName() {
         return name;
     }
@@ -17,16 +31,6 @@ public class Scene {
 
     public AmbientLight getAmbientLight() {
         return ambientLight;
-    }
-
-    Color background;
-    AmbientLight ambientLight;
-    public Geometries geometries;
-
-    public Scene(String name) {
-        this.name = name;
-
-        geometries = new Geometries();
     }
 
     public Scene setAmbientLight(AmbientLight ambientLight) {

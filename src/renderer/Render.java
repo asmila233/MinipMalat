@@ -46,14 +46,18 @@ public class Render  {
     }
     public void printGrid(int interval, Color color)
     {
+        //do grid on picture
         if (image ==null)
         {
+            //there is no image exist
             throw new MissingResourceException("error",this.getClass().toString(),"error");
         }
         if (interval<=0)
         {
+            //incorrect number for grid
             throw new IllegalArgumentException("interval is zero");
         }
+        //grt size
         int x = image.getNx();
         int y = image.getNy();
         //see where i should put grid and run on the times i need grid and put

@@ -113,12 +113,12 @@ public class CameraIntegrationTests {
      * @return
      */
     private int sphereNumberOfIntersections(Camera camera, Sphere sphere){
-        List<Point3D> intersect = null;
+        List<Intersectable.GeoPoint> intersect = null;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Ray ray = camera.constructRayThroughPixel(3,3,i,j);
-                List<Point3D> lst = sphere.findIntersections(ray);
+                List<Intersectable.GeoPoint> lst = sphere.findGeoIntersections(ray);
 
                 if(lst != null){
                     if(intersect == null){
@@ -140,12 +140,12 @@ public class CameraIntegrationTests {
      * @return
      */
     private int planeNumberOfIntersections(Camera camera, Plane plane){
-        List<Point3D> intersect = null;
+        List<Intersectable.GeoPoint> intersect = null;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Ray ray = camera.constructRayThroughPixel(3,3,i,j);
-                List<Point3D> lst = plane.findIntersections(ray);
+                List<Intersectable.GeoPoint> lst = plane.findGeoIntersections(ray);
 
                 if(lst != null){
                     if(intersect == null){
@@ -167,12 +167,12 @@ public class CameraIntegrationTests {
      * @return
      */
     private int polygonNumberOfIntersections(Camera camera, Polygon polygon){
-        List<Point3D> intersect = null;
+        List<Intersectable.GeoPoint> intersect = null;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Ray ray = camera.constructRayThroughPixel(3,3,i,j);
-                List<Point3D> lst = polygon.findIntersections(ray);
+                List<Intersectable.GeoPoint> lst = polygon.findGeoIntersections(ray);
 
                 if(lst != null){
                     if(intersect == null){

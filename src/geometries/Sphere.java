@@ -41,7 +41,7 @@ public class Sphere extends Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray R) {
+    public List<GeoPoint> findGeoIntersections(Ray R) {
         Point3D P0 = R.getPo();
         var vec = R.getDir();
         Vector u;
@@ -54,7 +54,20 @@ public class Sphere extends Geometry {
             //zero distance
             //in the middle of sphere
             ret.add(R.getPoint(radious));
-            return ret;
+
+            List<GeoPoint> result = new ArrayList<>();
+
+           // if(ret == null)
+           //     return null;
+
+            for (int i = 0; i < ret.size(); i++) {
+                if(ret.get(i) != null){
+                GeoPoint assist = new GeoPoint(this,ret.get(i));
+                result.add(assist);
+                }
+            }
+
+            return result;
         }
 
         var tm = Util.alignZero(u.dotProduct(vec));
@@ -72,8 +85,32 @@ public class Sphere extends Geometry {
             ret.add(R.getPoint(t1));
         if (t2>0)
             ret.add(R.getPoint(t2));
-        if (ret.size()>0)
-            return ret;
+        if (ret.size()>0){
+            List<GeoPoint> result = new ArrayList<>();
+
+            for (int i = 0; i < ret.size(); i++) {
+                GeoPoint assist = new GeoPoint(this,ret.get(i));
+                result.add(assist);
+            }
+
+            return result;
+        }
         return null;
     }
+/*    @Override
+    public List<GeoPoint> findGeoIntersections(Ray R) {
+        List<Point3D> intersections = this.findIntersections(R);
+
+        List<GeoPoint> result = new ArrayList<>();
+
+        if(intersections == null)
+            return null;
+
+        for (int i = 0; i < intersections.size(); i++) {
+            GeoPoint assist = new GeoPoint(this,intersections.get(i));
+            result.add(assist);
+        }
+
+        return result;
+    }*/
 }

@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Util;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tube extends Geometry{
@@ -49,7 +50,7 @@ public class Tube extends Geometry{
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray R) {
-        return null;
+    public List<GeoPoint> findGeoIntersections(Ray R) {
+    return null;
     }
 }

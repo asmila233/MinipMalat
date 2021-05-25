@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
 import primitives.*;
 import static primitives.Util.*;
@@ -87,10 +88,12 @@ public class Polygon extends Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray R) {
+    public List<GeoPoint> findGeoIntersections(Ray R) {
         if (vertices.size()==3)
         {
-            var x = plane.findIntersections(R);
+            var x = plane.findGeoIntersections(R);
+            List<GeoPoint> res = new ArrayList<>();
+
             Vector u1,u2,u3;
             try {
                 u1= vertices.get(0).subtract(R.getPo());
@@ -111,8 +114,20 @@ public class Polygon extends Geometry {
             d1= Util.alignZero(V1.dotProduct(R.getDir()));
             d2= Util.alignZero(V2.dotProduct(R.getDir()));
             d3= Util.alignZero(V3.dotProduct(R.getDir()));
-            if ((d1>0&&d2>0&&d3>0)||(d1<0&&d2<0&&d3<0))
-                return x;
+            if ((d1>0&&d2>0&&d3>0)||(d1<0&&d2<0&&d3<0)){
+
+                List<GeoPoint> result = new ArrayList<>();
+
+                if(x == null)
+                    return null;
+
+                for (int i = 0; i < x.size(); i++) {
+                    GeoPoint assist = new GeoPoint(this,x.get(i).point);
+                    result.add(assist);
+                }
+
+                return result;
+            }
             return null;
         }
         return null;

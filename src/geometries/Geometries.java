@@ -25,8 +25,8 @@ public class Geometries implements Intersectable {
         list.add(geometries);
     }
 
-    @Override
-    public List<Point3D> findIntersections(Ray R) {
+/*    @Override
+    public List<GeoPoint> findIntersections(Ray R) {
        if (list.isEmpty()){
            return null;
        }
@@ -41,5 +41,20 @@ public class Geometries implements Intersectable {
 if (result.size()==0) return null;
        return result;
 
+    }*/
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray R) {
+        List<GeoPoint> result = new ArrayList<>();
+        // to prevent an error in a case of an empty list.
+        if(list.isEmpty())
+            return null;
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).findGeoIntersections(R) != null) {
+                result.addAll(list.get(i).findGeoIntersections(R));
+            }
+        }
+        return result.isEmpty() ? null : result;
     }
 }

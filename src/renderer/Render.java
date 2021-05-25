@@ -2,6 +2,7 @@ package renderer;
 
 import elements.Camera;
 import primitives.Color;
+import scene.Scene;
 
 import java.util.MissingResourceException;
 

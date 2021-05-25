@@ -4,7 +4,6 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,39 +49,40 @@ public class Plane extends Geometry{
     }
 
     /**
-     * returns a list of all the intersections with the plane and the given ray
+     * returns a list of Geopoints contains all the intersections with the plane and the given ray
      * @param R
      * @return
      */
     @Override
-    public List<Point3D> findIntersections(Ray R) {
+    public List<GeoPoint> findGeoIntersections(Ray R) {
 
-        // preventing a 0 vector to be produced
-        if ((this.p0.getX().getCoord()) == (R.getPo().getX().getCoord()) &&
-                (this.p0.getY().getCoord()) == (R.getPo().getY().getCoord())&&
-                (this.p0.getZ().getCoord()) == (R.getPo().getZ().getCoord())) {
+            // preventing a 0 vector to be produced
+            if ((this.p0.getX().getCoord()) == (R.getPo().getX().getCoord()) &&
+                    (this.p0.getY().getCoord()) == (R.getPo().getY().getCoord())&&
+                    (this.p0.getZ().getCoord()) == (R.getPo().getZ().getCoord())) {
+                return null;
+            }
+            Vector sub = new Vector(this.p0.getX().getCoord() - R.getPo().getX().getCoord(),
+                    this.p0.getY().getCoord() - R.getPo().getY().getCoord(),
+                    this.p0.getZ().getCoord() - R.getPo().getZ().getCoord());
+
+            Vector N = new Vector(this.getNormal().getHead());
+
+            double t = (N.dotProduct(sub) / N.dotProduct(R.getDir()));
+            List<GeoPoint> result = new ArrayList<>();
+            // in a case of an infinity value in t
+            if (t == t/2) {
+                return null;
+            }
+            if(t > 0){
+                Point3D res = R.getPo();
+                res = res.add((R.getDir().scale(t)));
+
+                GeoPoint geo = new GeoPoint(this,res);
+                result.add(geo);
+                return result;
+            }
             return null;
         }
-        Vector sub = new Vector(this.p0.getX().getCoord() - R.getPo().getX().getCoord(),
-                this.p0.getY().getCoord() - R.getPo().getY().getCoord(),
-                this.p0.getZ().getCoord() - R.getPo().getZ().getCoord());
-
-        Vector N = new Vector(this.getNormal().getHead());
-
-        double t = (N.dotProduct(sub) / N.dotProduct(R.getDir()));
-        List<Point3D> result = new ArrayList<>();
-        // in a cse of an infinity value in t
-        if (t == t/2) {
-            return null;
-        }
-        if(t > 0){
-        Point3D res = R.getPo();
-        res = res.add((R.getDir().scale(t)));
-
-        result.add(res);
-        return result;
-        }
-        return null;
-    }
-
 }
+

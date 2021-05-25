@@ -1,5 +1,6 @@
 package primitives;
 
+import geometries.Intersectable.GeoPoint;
 import geometries.Polygon;
 
 
@@ -66,6 +67,26 @@ public class Ray {
         for (int i = 1; i < list.size(); i++) {
             if(po.distance(list.get(i)) < check){
                 check = po.distance(list.get(i));
+                result = list.get(i);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * finds the closest Geopoint to the head of the ray
+     * @param list
+     * @return
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> list){
+        if(list.size() == 0)
+            return null;
+        double check = (po.distance(list.get(0).point));
+        GeoPoint result = list.get(0);
+
+        for (int i = 1; i < list.size(); i++) {
+            if(po.distance(list.get(i).point) < check){
+                check = po.distance(list.get(i).point);
                 result = list.get(i);
             }
         }

@@ -16,7 +16,7 @@ public class Scene {
      */
     public Scene(String name) {
         this.name = name;
-
+        background = Color.BLACK;
         geometries = new Geometries();
     }
 

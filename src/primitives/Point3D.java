@@ -54,6 +54,14 @@ public class Point3D {
           return Math.sqrt(distancesquared(po));
     }
 
+    @Override
+    public String toString() {
+        return "Point3D{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

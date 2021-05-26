@@ -3,14 +3,13 @@ package elements;
 import primitives.Color;
 
 
-public class AmbientLight {
-    Color intensity ;
+public class AmbientLight extends Light{
 
     /**
      * in default the intensity field are initiated with the color black
      */
-    public AmbientLight() {
-        this.intensity = Color.BLACK;
+    public AmbientLight()  {
+        super( (Color.BLACK));
     }
 
     /**
@@ -19,10 +18,8 @@ public class AmbientLight {
      * @param ka
      */
     public AmbientLight(Color ia, double ka) {
-        intensity = ia.scale(ka);
+        super(ia.scale(ka));
     }
 
-    public Color getIntensity() {
-        return intensity;
-    }
+
 }

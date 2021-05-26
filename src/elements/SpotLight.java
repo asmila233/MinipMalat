@@ -32,12 +32,12 @@ public class SpotLight extends PointLight{
         this.direction = direction.normalize();
     }
 
+    /**
+     *
+     * @param p
+     * @return the repeat color
+     */
     @Override
-
-
-
-
-
     public Color getIntensity(Point3D p) {
         var color= super.getIntensity(p);
         var l = super.getL(p).normalize();

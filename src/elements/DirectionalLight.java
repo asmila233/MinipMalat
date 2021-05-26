@@ -17,11 +17,21 @@ public class DirectionalLight extends Light implements LightSource{
         this.direction = direction;
     }
 
+    /**
+     *
+     * @param p the palace who the light come
+     * @return
+     */
     @Override
     public Color getIntensity(Point3D p) {
         return this.getIntensity();
     }
 
+    /**
+     *
+     * @param p the palace who the light come
+     * @return
+     */
     @Override
     public Vector getL(Point3D p) {
         return direction;

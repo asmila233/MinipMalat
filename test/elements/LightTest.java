@@ -86,6 +86,28 @@ class LightsTests {
     }
 
     /**
+     * all light test
+     */
+    @Test
+    public void sphereAllLight() {
+        scene1.geometries.add(sphere);
+        scene1.lights.add(new SpotLight(new Point3D(75, 0, 25), new Color(0, 700,0 ), new Vector(-1, 0, 0)) //
+                .setKL(0.00001).setKQ(0.00000001));
+        scene1.lights.add(new PointLight(new Point3D(50, -50, 50), new Color(800, 0, 0)) //
+                .setKL(0.00001).setKQ(0.00000001));
+        scene1.lights.add(new DirectionalLight(new Vector(0, 0, -1), new Color(0, 200, 0)));
+
+        ImageWriter imageWriter = new ImageWriter("sphereAllLight", 500, 500);
+        Render render = new Render()//
+                .setImage(imageWriter) //
+                .setCam(camera1) //
+                .setRayTracerBasic(new RayTracerBasic(scene1));
+        render.renderImage();
+        render.writeToImage();
+    }
+
+
+    /**
      * Produce a picture of a two triangles lighted by a directional light
      */
     @Test
@@ -103,6 +125,24 @@ class LightsTests {
         render.writeToImage();
     }
 
+    /**
+     * this is test of all type of light
+     */
+    @Test
+    public void trianglesAllLight(){
+        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.8).setKs(0.2).setnShininess(300))); //
+        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.8).setKs(0.2).setnShininess(300)));
+        scene2.lights.add(new DirectionalLight(new Vector(0, 0, -1), new Color(0, 200, 0)));
+        scene2.lights.add(new SpotLight(new Point3D(-40,-60,-120), new Color(500, 0, 0), new Vector(-2, -2, -1)).setKL(0.0000005).setKQ(0.0000005));
+        scene2.lights.add(new PointLight(new Point3D(10,-10,-130), new Color(0, 0, 500)).setKL(0.000005).setKQ(0.000005));
+        ImageWriter imageWriter = new ImageWriter("trianglesAllLight", 500, 500);
+        Render render = new Render()//
+                .setImage(imageWriter) //
+                .setCam(camera2) //
+                .setRayTracerBasic(new RayTracerBasic(scene2));
+        render.renderImage();
+        render.writeToImage();
+    }
     /**
      * Produce a picture of a two triangles lighted by a point light
      */

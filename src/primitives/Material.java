@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * this class is define the fiscal counties of the geometry in the space
+ */
 public class Material {
     double Ks,Kd;
     int nShininess;

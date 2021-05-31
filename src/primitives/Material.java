@@ -4,15 +4,23 @@ package primitives;
  * this class is define the fiscal counties of the geometry in the space
  */
 public class Material {
-    double Ks,Kd;
+
+    /**
+     * kS - specular
+     * kD - diffuse
+     * kR - reflection
+     * kT - Transparency
+     */
+    double kS,kD,kT,kR;
+
     int nShininess;
 
-    public double getKs() {
-        return Ks;
+    public double getkS() {
+        return kS;
     }
 
     public double getKd() {
-        return Kd;
+        return kD;
     }
 
     public int getnShininess() {
@@ -20,12 +28,32 @@ public class Material {
     }
 
     /**
+     * setter
+     * @param kT
+     * @return
+     */
+    public Material setkT(double kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    /**
+     * setter
+     * @param kR
+     * @return
+     */
+    public Material setkR(double kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    /**
      *
-     * @param ks
+     * @param kS
      * @return this
      */
-    public Material setKs(double ks) {
-        Ks = ks;
+    public Material setkS(double kS) {
+        this.kS = kS;
         return this;
     }
 
@@ -35,7 +63,7 @@ public class Material {
      * @return this
      */
     public Material setKd(double kd) {
-        Kd = kd;
+        kD = kd;
         return this;
     }
 
@@ -53,8 +81,10 @@ public class Material {
      * empty
      */
     public Material() {
-        Ks=0;
-        Kd=0;
+        kS =0.0;
+        kD=0.0;
+        kT = 0.0;
+        kR = 0.0;
         nShininess=0;
     }
 

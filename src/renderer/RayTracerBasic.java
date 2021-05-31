@@ -8,8 +8,6 @@ import scene.Scene;
 
 import java.util.List;
 
-import static primitives.Util.alignZero;
-
 /**
  * this class goal is to throw ray and back color in the scene
  */
@@ -18,28 +16,36 @@ public class RayTracerBasic extends RayTracerBase {
      * constant for moving the heads of shading rays.
      */
     private static final double DELTA = 0.1;
+    /**
+     * constant for the max amount of recursion loops
+     */
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    /**
+     * constant for the min value of the returned value
+     */
+    private static final double MIN_CALC_COLOR_K = 0.001;
+
 
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
 
     /**
-     *check what intersections there are from the scene, and if there are not any of them retuen the color of the background
+     *check what intersections there are from the scene, and if there are not any of them return the color of the background
      * @param ray
      * @return
      */
     @Override
     public Color traceRay(Ray ray) {
 
-        var point3DS = scene.geometries.findGeoIntersections(ray);
-        if(point3DS==null)
+        var close= this.findClosestIntersection(ray);
+        if(close == null)
             return scene.getBackground();
-        var close= ray.findClosestGeoPoint(point3DS);
         return calcColor(close,ray);
     }
 
     /**
-     * return true if the point is not shaded and have a clean straight lint to lightsource
+     * return true if the point is not shaded and have a clean straight line to light source
      * @param light
      * @param l
      * @param n
@@ -56,6 +62,12 @@ public class RayTracerBasic extends RayTracerBase {
         return intersections.isEmpty();
     }
 
+    /**
+     * calculates the returned color, including shades and reduction
+     * @param p
+     * @param R
+     * @return
+     */
     private Color calcColor (GeoPoint p, Ray R)
     {
         Vector V = R.getDir();
@@ -81,11 +93,63 @@ public class RayTracerBasic extends RayTracerBase {
                 var r= l.subtract(n.scale(2*dot)).normalize();
                 var dotRV= -V.dotProduct(r);
                 var max = Math.max(dotRV,0);
-                double ks_factor = Math.pow(max,material.getnShininess()) *material.getKs();
+                double ks_factor = Math.pow(max,material.getnShininess()) *material.getkS();
                 var add = Il.scale(ks_factor+kd_factor);
                 color= color.add(add);
             }
         }
         return color;
+    }
+
+    /**
+     * construct a new ray of the refraction
+     * @param ray
+     * @param point
+     * @return
+     */
+    public Ray refractedRay(Ray ray, GeoPoint point){
+        Vector dir = ray.getDir();
+        Vector norm = point.geometry.getNormal(point.point);
+        Vector addition = norm.scale(DELTA);
+
+        if(ray.getDir().dotProduct(norm) < 0)
+            return new Ray(point.point.add(addition) , dir);
+
+        else
+            return new Ray(point.point.add(addition.scale(-1)), dir);
+    }
+
+    /**
+     * construct a new ray of the reflection
+     * @param ray
+     * @param point
+     * @return
+     */
+    public Ray reflectedRay(Ray ray, GeoPoint point){
+        Vector dir = ray.getDir();
+        Vector norm = point.geometry.getNormal(point.point);
+        Vector addition = norm.scale(DELTA);
+
+        if(ray.getDir().dotProduct(norm) < 0)
+            return new Ray(point.point.add(addition) , dir.subtract((norm.crossProduct(dir.crossProduct(norm))).scale(2)));
+
+        else
+            return new Ray(point.point.add(addition.scale(-1)), dir.subtract((norm.crossProduct(dir.crossProduct(norm))).scale(-2)));
+    }
+
+    private GeoPoint findClosestIntersection(Ray ray){
+        Point3D source = ray.getPo();
+        GeoPoint result = null;
+        double assist = Double.POSITIVE_INFINITY, temp;
+        var contain = scene.geometries.findGeoIntersections(ray);
+
+        for (var n:contain) {
+            temp = source.distance(n.point);
+            if(temp < assist){
+                assist = temp;
+                result = n;
+            }
+        }
+        return result;
     }
 }

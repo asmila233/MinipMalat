@@ -26,10 +26,10 @@ public class ShadowTests {
         scene.geometries.add( //
                 new Sphere(new Point3D(0, 0, -200), 60) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)), //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)), //
                 new Polygon(new Point3D(-70, -40, 0), new Point3D(-40, -70, 0), new Point3D(-68, -68, -4)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)) //
         );
         scene.lights.add( //
                 new SpotLight(new Point3D(-100, -100, 200), new Color(400, 240, 0), new Vector(1, 1, -3)) //
@@ -47,10 +47,10 @@ public class ShadowTests {
         scene.geometries.add( //
                 new Sphere(new Point3D(0, 0, -200), 60) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)), //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)), //
                 new Polygon(new Point3D(-70, 20, 0), new Point3D(-40, -70, 0), new Point3D(-68, -68, -4)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)) //
         );
         scene.lights.add( //
                 new SpotLight(new Point3D(-100, -50, 200), new Color(400, 240, 0), new Vector(1, 1, -3)) //
@@ -68,10 +68,10 @@ public class ShadowTests {
         scene.geometries.add( //
                 new Sphere(new Point3D(0, 0, -200), 60) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)), //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)), //
                 new Polygon(new Point3D(-10, -40, 0), new Point3D(-40, -70, 0), new Point3D(-68, -68, -4)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)) //
         );
         scene.lights.add( //
                 new SpotLight(new Point3D(-60, -100, 200), new Color(400, 240, 0), new Vector(1, 1, -3)) //
@@ -89,10 +89,10 @@ public class ShadowTests {
         scene.geometries.add( //
                 new Sphere(new Point3D(0, 0, -200), 60) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)), //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)), //
                 new Polygon(new Point3D(-30, -10, 0), new Point3D(-40, -70, 0), new Point3D(-68, -68, -4)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)) //
         );
         scene.lights.add( //
                 new SpotLight(new Point3D(-100, -100, 200), new Color(400, 240, 0), new Vector(1, 1, -3)) //
@@ -110,10 +110,10 @@ public class ShadowTests {
         scene.geometries.add( //
                 new Sphere(new Point3D(0, 0, -200), 60) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)), //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)), //
                 new Polygon(new Point3D(-20, 20, 0), new Point3D(-40, -70, 0), new Point3D(-68, -68, -4)) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)) //
         );
         scene.lights.add( //
                 new SpotLight(new Point3D(-120, -120, 200), new Color(400, 240, 0), new Vector(1, 1, -3)) //
@@ -136,12 +136,12 @@ public class ShadowTests {
 
         scene.geometries.add( //
                 new Polygon(new Point3D(-150, -150, -115), new Point3D(150, -150, -135), new Point3D(75, 75, -150)) //
-                        .setMaterial(new Material().setKs(0.8).setnShininess(60)), //
+                        .setMaterial(new Material().setkS(0.8).setnShininess(60)), //
                 new Polygon(new Point3D(-150, -150, -115), new Point3D(-70, 70, -140), new Point3D(75, 75, -150)) //
-                        .setMaterial(new Material().setKs(0.8).setnShininess(60)), //
+                        .setMaterial(new Material().setkS(0.8).setnShininess(60)), //
                 new Sphere(new Point3D(0, 0, -115), 30) //
                         .setEmission(new Color(java.awt.Color.BLUE)) //
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)) //
+                        .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(30)) //
         );
         scene.lights.add( //
                 new SpotLight(new Point3D(40, 40, 115), new Color(700, 400, 400), new Vector(-1, -1, -4)) //

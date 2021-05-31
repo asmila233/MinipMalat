@@ -1,7 +1,6 @@
 package elements;
 
 
-import elements.*;
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
@@ -30,7 +29,7 @@ class LightsTests {
             new Point3D(-150, -150, -150), new Point3D(-70, 70, -50), new Point3D(75, 75, -150));
     private static Geometry sphere = new Sphere(new Point3D(0, 0, -50), 50) //
             .setEmission(new Color(java.awt.Color.BLUE)) //
-            .setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(100));
+            .setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(100));
 
     /**
      * Produce a picture of a sphere lighted by a directional light
@@ -112,8 +111,8 @@ class LightsTests {
      */
     @Test
     public void trianglesDirectional() {
-        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.8).setKs(0.2).setnShininess(300))); //
-        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.8).setKs(0.2).setnShininess(300)));
+        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.8).setkS(0.2).setnShininess(300))); //
+        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.8).setkS(0.2).setnShininess(300)));
         scene2.lights.add(new DirectionalLight(new Vector(0, 0, -1), new Color(300, 150, 150)));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesDirectional", 500, 500);
@@ -130,8 +129,8 @@ class LightsTests {
      */
     @Test
     public void trianglesAllLight(){
-        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.8).setKs(0.2).setnShininess(300))); //
-        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.8).setKs(0.2).setnShininess(300)));
+        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.8).setkS(0.2).setnShininess(300))); //
+        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.8).setkS(0.2).setnShininess(300)));
         scene2.lights.add(new DirectionalLight(new Vector(0, 0, -1), new Color(0, 200, 0)));
         scene2.lights.add(new SpotLight(new Point3D(-40,-60,-120), new Color(500, 0, 0), new Vector(-2, -2, -1)).setKL(0.0000005).setKQ(0.0000005));
         scene2.lights.add(new PointLight(new Point3D(10,-10,-130), new Color(0, 0, 500)).setKL(0.000005).setKQ(0.000005));
@@ -148,8 +147,8 @@ class LightsTests {
      */
     @Test
     public void trianglesPoint() {
-        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(300))); //
-        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(300)));
+        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(300))); //
+        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(300)));
         scene2.lights.add(new PointLight(new Point3D(10, -10, -130), new Color(500, 250, 250)) //
                 .setKL(0.0005).setKQ(0.0005));
 
@@ -167,8 +166,8 @@ class LightsTests {
      */
     @Test
     public void trianglesSpot() {
-        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(300)));
-        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(300)));
+        scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(300)));
+        scene2.geometries.add(triangle2.setMaterial(new Material().setKd(0.5).setkS(0.5).setnShininess(300)));
         scene2.lights.add(new SpotLight(new Point3D(10, -10, -130), new Color(500, 250, 250), new Vector(-2, -2, -1)) //
                 .setKL(0.0001).setKQ(0.000005));
 

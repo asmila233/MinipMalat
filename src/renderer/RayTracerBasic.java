@@ -1,20 +1,30 @@
 package renderer;
 
+import elements.LightSource;
 import geometries.Intersectable.GeoPoint;
+
 import primitives.*;
 import scene.Scene;
+
+import java.util.List;
+
+import static primitives.Util.alignZero;
 
 /**
  * this class goal is to throw ray and back color in the scene
  */
 public class RayTracerBasic extends RayTracerBase {
+    /**
+     * constant for moving the heads of shading rays.
+     */
+    private static final double DELTA = 0.1;
 
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
 
     /**
-     *check what intersectins there are from the scene, and if there are not any of them retuen the color of the background
+     *check what intersections there are from the scene, and if there are not any of them retuen the color of the background
      * @param ray
      * @return
      */
@@ -27,6 +37,25 @@ public class RayTracerBasic extends RayTracerBase {
         var close= ray.findClosestGeoPoint(point3DS);
         return calcColor(close,ray.getDir());
     }
+
+    /**
+     * return true if the point is not shaded and have a clean straight lint to lightsource
+     * @param light
+     * @param l
+     * @param n
+     * @param geopoint
+     * @return
+     */
+    private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
+        Point3D point = geopoint.point.add(delta);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = scene.geometries
+                .findGeoIntersections(lightRay, light.getDistance(geopoint.point));
+        return intersections.isEmpty();
+    }
+
     private Color calcColor (GeoPoint p, Vector V)
     {
            var ambientLight=  scene.getAmbientLight();

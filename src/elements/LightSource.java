@@ -13,13 +13,12 @@ public interface LightSource {
      * @return the color on this light
      */
     public Color getIntensity(Point3D p);
-
     /**
      * @param p the palace who the light come
      * @return the vector of the light
      */
     public Vector getL(Point3D p);
-    double getDistance(Point3D point);
+    public double getDistance(Point3D point);
 
 
 }

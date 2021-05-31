@@ -35,7 +35,7 @@ public class RayTracerBasic extends RayTracerBase {
         if(point3DS==null)
             return scene.getBackground();
         var close= ray.findClosestGeoPoint(point3DS);
-        return calcColor(close,ray.getDir());
+        return calcColor(close,ray);
     }
 
     /**
@@ -52,12 +52,13 @@ public class RayTracerBasic extends RayTracerBase {
         Point3D point = geopoint.point.add(delta);
         Ray lightRay = new Ray(point, lightDirection);
         List<GeoPoint> intersections = scene.geometries
-                .findGeoIntersections(lightRay, light.getDistance(geopoint.point));
+                .findGeoIntersections(lightRay, light.getDistance(geopoint.point), light);
         return intersections.isEmpty();
     }
 
-    private Color calcColor (GeoPoint p, Vector V)
+    private Color calcColor (GeoPoint p, Ray R)
     {
+        Vector V = R.getDir();
            var ambientLight=  scene.getAmbientLight();
            var intensity = ambientLight.getIntensity();
            var color = intensity.add(p.geometry.getEmission());

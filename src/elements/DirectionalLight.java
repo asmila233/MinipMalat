@@ -36,4 +36,10 @@ public class DirectionalLight extends Light implements LightSource{
     public Vector getL(Point3D p) {
         return direction;
     }
+
+    @Override
+    public double getDistance(Point3D point) {
+        // the distance from my to the sum or else direction light is infinity and this him define
+        return Double.POSITIVE_INFINITY;
+    }
 }

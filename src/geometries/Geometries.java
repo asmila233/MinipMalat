@@ -1,5 +1,6 @@
 package geometries;
 
+import elements.LightSource;
 import primitives.Point3D;
 import primitives.Ray;
 
@@ -56,5 +57,18 @@ if (result.size()==0) return null;
             }
         }
         return result.isEmpty() ? null : result;
+    }
+
+
+    public List<GeoPoint> findGeoIntersections(Ray lightRay, double distance, LightSource light) {
+        var list = findGeoIntersections(lightRay);
+        if (Double.isFinite(distance))
+            return list;//is direction light and his always infinity
+        List<Intersectable.GeoPoint> ret= new ArrayList<>();
+        for (var p:list) {
+            if (light.getDistance(p.point)<=distance)
+                ret.add(p);
+        }
+        return ret;
     }
 }

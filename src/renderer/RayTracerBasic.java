@@ -74,15 +74,17 @@ public class RayTracerBasic extends RayTracerBase {
                 break;
             var n=p.geometry.getNormal(p.point).normalize();
             var l = i.getL(p.point).normalize();
-            var dot = n.dotProduct(l);
-            var kd_factor= Math.abs(dot)* material.getKd();
-            //ks
-            var r= l.subtract(n.scale(2*dot)).normalize();
-            var dotRV= -V.dotProduct(r);
-            var max = Math.max(dotRV,0);
-            double ks_factor = Math.pow(max,material.getnShininess()) *material.getKs();
-            var add = Il.scale(ks_factor+kd_factor);
-            color= color.add(add);
+            if (unshaded(i,l,n,p)) {
+                var dot = n.dotProduct(l);
+                var kd_factor= Math.abs(dot)* material.getKd();
+                //ks
+                var r= l.subtract(n.scale(2*dot)).normalize();
+                var dotRV= -V.dotProduct(r);
+                var max = Math.max(dotRV,0);
+                double ks_factor = Math.pow(max,material.getnShininess()) *material.getKs();
+                var add = Il.scale(ks_factor+kd_factor);
+                color= color.add(add);
+            }
         }
         return color;
     }

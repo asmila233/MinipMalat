@@ -21,9 +21,11 @@ public class Geometries implements Intersectable {
         list.add(geometries);
     }
 
-    public void add(Intersectable geometries)
+    public void add(Intersectable ... geometries)
     {
-        list.add(geometries);
+        for (var i :geometries) {
+            list.add(i);
+        }
     }
 
 /*    @Override
@@ -62,9 +64,11 @@ if (result.size()==0) return null;
 
     public List<GeoPoint> findGeoIntersections(Ray lightRay, double distance, LightSource light) {
         var list = findGeoIntersections(lightRay);
-        if (Double.isFinite(distance))
-            return list;//is direction light and his always infinity
         List<Intersectable.GeoPoint> ret= new ArrayList<>();
+        if (list==null)
+                return ret;
+        if (Double.isInfinite(distance))
+            return ret;//is direction light and his always infinity
         for (var p:list) {
             if (light.getDistance(p.point)<=distance)
                 ret.add(p);

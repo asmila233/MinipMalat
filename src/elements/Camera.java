@@ -12,6 +12,12 @@ public class Camera {
     private Vector to;
     private Vector right;
 
+    /**
+     * constructor with all the needed parameters' vectors and a starting point.
+     * @param spot
+     * @param to
+     * @param up
+     */
     public Camera(    Point3D spot,Vector to, Vector up) {
         this.spot= spot;
         this.up = up;
@@ -21,7 +27,7 @@ public class Camera {
         right = to.crossProduct(up).normalize();
     }
 
-    //getter
+    //getters
     public Vector getUp() {
         return up;
     }
@@ -41,7 +47,7 @@ public class Camera {
     private double width;
     private double height;
 
-    // setter
+    // setters
 
     public Camera setViewPlaneSize(double width, double height)
     {

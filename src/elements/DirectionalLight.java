@@ -30,13 +30,17 @@ public class DirectionalLight extends Light implements LightSource{
     /**
      *
      * @param p the palace who the light come
-     * @return
+     * @return the direction of the light
      */
     @Override
     public Vector getL(Point3D p) {
         return direction;
     }
 
+    /**
+     * @param point
+     * @return infinity
+     */
     @Override
     public double getDistance(Point3D point) {
         // the distance from my to the sum or else direction light is infinity and this him define

@@ -82,15 +82,26 @@ public class Polygon extends Geometry {
         }
     }
 
+    /**
+     *
+     * @param point
+     * @return the normal of the plane the polygon is lying on.
+     */
     @Override
     public Vector getNormal(Point3D point) {
         return plane.getNormal();
     }
 
+    /**
+     * returns a list of geopoints contains all the intersection with the polygon
+     * @param R
+     * @return
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray R) {
         if (vertices.size()==3)
         {
+            // first we find the intersections with the plane and then we check wether it is in the polygon or not.
             var x = plane.findGeoIntersections(R);
             List<GeoPoint> res = new ArrayList<>();
 

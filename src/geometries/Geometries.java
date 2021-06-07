@@ -28,24 +28,11 @@ public class Geometries implements Intersectable {
         }
     }
 
-/*    @Override
-    public List<GeoPoint> findIntersections(Ray R) {
-       if (list.isEmpty()){
-           return null;
-       }
-       List <Point3D> result = new ArrayList<>();
-       List <Point3D> assist = new ArrayList<>();
-       for(int i = 0; i<list.size(); i++){
-           var x = list.get(i).findIntersections(R);
-           if(x != null) {
-               result.addAll(x);
-           }
-       }
-if (result.size()==0) return null;
-       return result;
-
-    }*/
-
+    /**
+     * retruns a list of every intersection in the geometry.
+     * @param R
+     * @return
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray R) {
         List<GeoPoint> result = new ArrayList<>();
@@ -61,7 +48,13 @@ if (result.size()==0) return null;
         return result.isEmpty() ? null : result;
     }
 
-
+    /**
+     * returns a list of geopoints containing all the intersections with geometries in the class that are before the light source.
+     * @param lightRay
+     * @param distance
+     * @param light
+     * @return
+     */
     public List<GeoPoint> findGeoIntersections(Ray lightRay, double distance, LightSource light) {
         var list = findGeoIntersections(lightRay);
         List<Intersectable.GeoPoint> ret= new ArrayList<>();
@@ -69,6 +62,7 @@ if (result.size()==0) return null;
                 return ret;
         if (Double.isInfinite(distance))
             return ret;//is direction light and his always infinity
+        // what we do here is that for each intersection we check if it is before the light or after
         for (var p:list) {
             if (light.getDistance(p.point)<=distance)
                 ret.add(p);

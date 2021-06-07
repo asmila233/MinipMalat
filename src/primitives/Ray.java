@@ -93,7 +93,7 @@ public class Ray {
         }
         return result;
     }
-
+//getters
     public Point3D getPo() {
         return po;
     }

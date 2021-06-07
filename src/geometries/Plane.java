@@ -12,12 +12,22 @@ public class Plane extends Geometry{
     protected Vector norma;
 
 
-
+    /**
+     *
+     * @param p0
+     * @return the normalized normal of the plane
+     */
     @Override
     public Vector getNormal(Point3D p0) {
         return norma.normalize();
     }
 
+    /**
+     * constructor that produces two vectors from the given points.
+     * @param A
+     * @param B
+     * @param C
+     */
     public Plane(Point3D A, Point3D B, Point3D C)
     {
         Vector first = A.subtract(B);
@@ -25,13 +35,18 @@ public class Plane extends Geometry{
         norma =  first.crossProduct(second).normalize();
         p0 = B;
     }
+
+    /**
+     * shortcut constructor, the normal is given and there is no need tto find it.
+     * @param A
+     * @param norm
+     */
     public Plane(Point3D A, Vector norm)
     {
         norma =  norm;
         p0 = A;
     }
-
-
+//getters
     public Vector getNormal() {
         return norma;
     }

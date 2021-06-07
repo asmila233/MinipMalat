@@ -203,6 +203,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     /**
+     * returns the closest intersection to the start of the ray to simulate shading
      * @param ray
      * @return
      */

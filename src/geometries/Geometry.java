@@ -18,12 +18,13 @@ public abstract class Geometry implements Intersectable {
     }
 
     abstract public Vector getNormal(Point3D po);
-    
+    // default value of the emission
     protected Color emission = Color.BLACK;
+    //getter
     public Color getEmission() {
         return emission;
     }
-
+    //setter
     public Geometry setEmission(Color color)
     {
         emission=color;

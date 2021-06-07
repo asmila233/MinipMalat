@@ -13,21 +13,6 @@ public class Tube extends Geometry{
     protected double radious;
 
 
-    @Override
-    public Vector getNormal(Point3D po) {
-        var p0= axisRay.getPo();
-        var v0= axisRay.getDir();
-        if (p0.equals(po))
-            return v0.scale(-1).normalize();
-        var v = po.subtract(p0);
-        var t= v.dotProduct(v0);
-        if (Util.isZero(t)){
-            return v0.scale(-1).normalize();
-        }
-        var p1 = p0.add(v0.scale(t));
-        return po.subtract(p1).normalize();
-    }
-
     public Tube(Ray axisRay, double radious) {
         this.axisRay = axisRay;
         this.radious = radious;
@@ -47,6 +32,26 @@ public class Tube extends Geometry{
                 "axisRay=" + axisRay +
                 ", radious=" + radious +
                 '}';
+    }
+
+    /**
+     *
+     * @param po
+     * @return a normal to a given point on the tube.
+     */
+    @Override
+    public Vector getNormal(Point3D po) {
+        var p0= axisRay.getPo();
+        var v0= axisRay.getDir();
+        if (p0.equals(po))
+            return v0.scale(-1).normalize();
+        var v = po.subtract(p0);
+        var t= v.dotProduct(v0);
+        if (Util.isZero(t)){
+            return v0.scale(-1).normalize();
+        }
+        var p1 = p0.add(v0.scale(t));
+        return po.subtract(p1).normalize();
     }
 
     @Override

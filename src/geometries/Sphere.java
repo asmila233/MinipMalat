@@ -40,6 +40,11 @@ public class Sphere extends Geometry {
                 '}';
     }
 
+    /**
+     * we did this function by the rules given in the slides
+     * @param R
+     * @return a list of geopoints containing all the intersections with the sphere
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray R) {
         Point3D P0 = R.getPo();
@@ -57,8 +62,6 @@ public class Sphere extends Geometry {
 
             List<GeoPoint> result = new ArrayList<>();
 
-           // if(ret == null)
-           //     return null;
 
             for (int i = 0; i < ret.size(); i++) {
                 if(ret.get(i) != null){
@@ -100,20 +103,4 @@ public class Sphere extends Geometry {
 
         return null;
     }
-/*    @Override
-    public List<GeoPoint> findGeoIntersections(Ray R) {
-        List<Point3D> intersections = this.findIntersections(R);
-
-        List<GeoPoint> result = new ArrayList<>();
-
-        if(intersections == null)
-            return null;
-
-        for (int i = 0; i < intersections.size(); i++) {
-            GeoPoint assist = new GeoPoint(this,intersections.get(i));
-            result.add(assist);
-        }
-
-        return result;
-    }*/
 }

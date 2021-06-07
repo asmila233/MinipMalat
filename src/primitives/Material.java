@@ -78,7 +78,7 @@ public class Material {
     }
 
     /**
-     *
+     *default constructor
      * empty
      */
     public Material() {

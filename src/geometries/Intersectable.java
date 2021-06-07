@@ -33,12 +33,14 @@ public interface Intersectable {
         }
     }
 
+    /**
+     * taken from the exe page
+     * @param ray
+     * @return
+     */
     default List<Point3D> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
     }
-
-
-
 }

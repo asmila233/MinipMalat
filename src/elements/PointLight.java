@@ -65,11 +65,21 @@ public class PointLight extends Light implements LightSource {
         return getIntensity().scale(1/k);
     }
 
+    /**
+     *
+     * @param p the palace who the light come
+     * @return
+     */
     @Override
     public Vector getL(Point3D p) {
         return  p.subtract(position).normalize();
     }
 
+    /**
+     * returns the actual distance between the point and the head of the light
+     * @param point
+     * @return
+     */
     @Override
     public double getDistance(Point3D point) {
         return position.distance(point);

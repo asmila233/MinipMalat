@@ -9,18 +9,35 @@ public class Point3D {
     Coordinate y;
     Coordinate z;
 
+    /**
+     * construct a new point with the given coordinates.
+     * @param _x
+     * @param _y
+     * @param _z
+     */
     public Point3D(Coordinate _x, Coordinate _y, Coordinate _z) {
         x = _x;
         y = _y;
         z = _z;
     }
 
+    /**
+     * turn the double numbers to coordinate and then construct a point
+     * @param _x
+     * @param _y
+     * @param _z
+     */
     public Point3D(double _x, double _y, double _z) {
         x = new Coordinate(_x);
         y = new Coordinate(_y);
         z = new Coordinate(_z);
     }
 
+    /**
+     * adds each coordinate of the vector to each coordinate of the point.
+     * @param vec
+     * @return
+     */
     public Point3D add (Vector vec)
     {
         var p1 = vec.getHead();
@@ -31,6 +48,11 @@ public class Point3D {
         return new Point3D(x1,x2,x3);
     }
 
+    /**
+     * returns a vector with the subtracted coordinates
+     * @param po
+     * @return
+     */
     public Vector subtract (Point3D po)
     {
         var x1 =  this.x.coord - po.x.coord;
@@ -40,6 +62,11 @@ public class Point3D {
         return new Vector(x1,x2,x3);
     }
 
+    /**
+     * returns the squared distance from a given point to this point.
+     * @param po
+     * @return
+     */
     public double distancesquared (Point3D po)
     {
           var x1 = (po.x.coord - this.x.coord);
@@ -49,6 +76,11 @@ public class Point3D {
           return (x1*x1 + x2*x2 + x3*x3);
     }
 
+    /**
+     * returns the squared root of the previous func distancesquared
+     * @param po
+     * @return
+     */
     public double distance (Point3D po)
     {
           return Math.sqrt(distancesquared(po));
@@ -70,7 +102,7 @@ public class Point3D {
         Point3D point3D = (Point3D) o;
         return x.equals(point3D.x) && y.equals(point3D.y) && z.equals(point3D.z);
     }
-
+//getters
     public Coordinate getX() {
         return x;
     }

@@ -32,6 +32,7 @@ public class Ray {
     {
         if (t<0)
             throw new IllegalArgumentException("negative number");
+        dir.scale(t);
         var x = po.add(dir.scale(t));
         return x;
     }
@@ -78,20 +79,20 @@ public class Ray {
      * @param list
      * @return
      */
-//    public GeoPoint findClosestGeoPoint(List<GeoPoint> list){
-//        if(list.size() == 0)
-//            return null;
-//        double check = (po.distance(list.get(0).point));
-//        GeoPoint result = list.get(0);
-//
-//        for (int i = 1; i < list.size(); i++) {
-//            if(po.distance(list.get(i).point) < check){
-//                check = po.distance(list.get(i).point);
-//                result = list.get(i);
-//            }
-//        }
-//        return result;
-//    }
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> list){
+        if(list.size() == 0)
+            return null;
+        double check = (po.distance(list.get(0).point));
+        GeoPoint result = list.get(0);
+
+        for (int i = 1; i < list.size(); i++) {
+            if(po.distance(list.get(i).point) < check){
+                check = po.distance(list.get(i).point);
+                result = list.get(i);
+            }
+        }
+        return result;
+    }
 
     public Point3D getPo() {
         return po;

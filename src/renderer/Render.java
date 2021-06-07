@@ -14,16 +14,16 @@ public class Render  {
     Camera cam;
     RayTracerBasic rayTracerBasic;
 
-    public Render setRayTracerBasic(RayTracerBasic rayTracerBasic) {
+    public Render setRayTracer(RayTracerBasic rayTracerBasic) {
         this.rayTracerBasic = rayTracerBasic;return this;
     }
 
-    public Render setCam(Camera cam) {
+    public Render setCamera(Camera cam) {
         this.cam = cam;
         return this;
     }
 
-    public Render setImage(ImageWriter image) {
+    public Render setImageWriter(ImageWriter image) {
         this.image = image;
         return this;
     }

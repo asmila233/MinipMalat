@@ -74,14 +74,16 @@ public class Plane extends Geometry{
             if (t == t/2) {
                 return null;
             }
-            if(t > 0){
-                Point3D res = R.getPo();
-                res = res.add((R.getDir().scale(t)));
 
-                GeoPoint geo = new GeoPoint(this,res);
-                result.add(geo);
-                return result;
-            }
+                if(t > 0){
+                    Point3D res = R.getPo();
+                    res = res.add((R.getDir().scale(t)));
+                    GeoPoint geo = new GeoPoint(this,res);
+                    result.add(geo);
+                    return result;
+                }
+
+
             return null;
         }
 }

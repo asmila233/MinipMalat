@@ -2,7 +2,6 @@ package elements;
 
 import primitives.Color;
 import primitives.Point3D;
-import primitives.Util;
 import primitives.Vector;
 
 public class PointLight extends Light implements LightSource {
@@ -10,23 +9,23 @@ public class PointLight extends Light implements LightSource {
 
    //fields
     private Point3D position;
-    private double kQ;
-    private double kL;
-    private double kC;
+    private double kq;
+    private double kl;
+    private double kc;
 
     //setters
-    public PointLight setKQ(double kQ) {
-        this.kQ = kQ;
+    public PointLight setKq(double kQ) {
+        this.kq = kQ;
         return this;
     }
 
-    public PointLight setKL(double kL) {
-        this.kL = kL;
+    public PointLight setKl(double kL) {
+        this.kl = kL;
         return this;
     }
 
-    public PointLight setKC(double kC) {
-        this.kC = kC;
+    public PointLight setKc(double kC) {
+        this.kc = kC;
         return this;
     }
 
@@ -38,31 +37,31 @@ public class PointLight extends Light implements LightSource {
     protected PointLight(Point3D position,Color intensity_) {
         super(intensity_);
         this.position=position;
-        kQ= 0;
-        kL=0;
-        kC=1;
+        kq = 0;
+        kl =0;
+        kc =1;
     }
 
     /**
      * @param intensity_
      * @param position
-     * @param kQ
-     * @param kL
-     * @param kC
+     * @param kq
+     * @param kl
+     * @param kc
      */
-    public PointLight(Color intensity_, Point3D position, double kQ, double kL, double kC) {
+    public PointLight(Color intensity_, Point3D position, double kq, double kl, double kc) {
         super(intensity_);
         this.position = position;
-        this.kQ = kQ;
-        this.kL = kL;
-        this.kC = kC;
+        this.kq = kq;
+        this.kl = kl;
+        this.kc = kc;
     }
 
     // the implements of the interface
     @Override
     public Color getIntensity(Point3D p) {
         double d = position.distance(p);
-        double k = kC+kL*d+kQ*d*d;
+        double k = kc + kl *d+ kq *d*d;
         return getIntensity().scale(1/k);
     }
 

@@ -11,11 +11,11 @@ public class Material {
      * kR - reflection
      * kT - Transparency
      */
-    double kS,kD,kT,kR;
+    public double kS,kD,kT,kR;
 
     int nShininess;
 
-    public double getkS() {
+    public double getks() {
         return kS;
     }
 
@@ -32,7 +32,7 @@ public class Material {
      * @param kT
      * @return
      */
-    public Material setkT(double kT) {
+    public Material setKt(double kT) {
         this.kT = kT;
         return this;
     }
@@ -42,7 +42,7 @@ public class Material {
      * @param kR
      * @return
      */
-    public Material setkR(double kR) {
+    public Material setKr(double kR) {
         this.kR = kR;
         return this;
     }
@@ -52,7 +52,7 @@ public class Material {
      * @param kS
      * @return this
      */
-    public Material setkS(double kS) {
+    public Material setKs(double kS) {
         this.kS = kS;
         return this;
     }
@@ -62,7 +62,7 @@ public class Material {
      * @param kd
      * @return this
      */
-    public Material setKd(double kd) {
+    public Material setkd(double kd) {
         kD = kd;
         return this;
     }
@@ -72,12 +72,13 @@ public class Material {
      * @param nShininess
      * @return this
      */
-    public Material setnShininess(int nShininess) {
+    public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
     }
 
     /**
+     *
      * empty
      */
     public Material() {

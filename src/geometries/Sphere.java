@@ -83,8 +83,10 @@ public class Sphere extends Geometry {
 
         if (t1>0)
             ret.add(R.getPoint(t1));
+
         if (t2>0)
             ret.add(R.getPoint(t2));
+
         if (ret.size()>0){
             List<GeoPoint> result = new ArrayList<>();
 
@@ -95,6 +97,7 @@ public class Sphere extends Geometry {
 
             return result;
         }
+
         return null;
     }
 /*    @Override

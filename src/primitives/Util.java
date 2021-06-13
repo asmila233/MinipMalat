@@ -1,5 +1,8 @@
 package primitives;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  *
@@ -65,6 +68,37 @@ public abstract class Util {
      */
     public static double random(double min, double max) {
         return Math.random() * (max - min) + min;
+    }
+
+    /**
+     * @param p0
+     * @param upLeft
+     * @param upRight
+     * @param downLeft
+     * @param downRight
+     * @param x size grid
+     * @param y size grid
+     * @return the rays from p0 to point between the 4 points on same distance
+     */
+    public static List<Ray> GridOf4Point (Point3D p0,Point3D upLeft,Point3D upRight,Point3D downLeft,Point3D downRight,int x, int y )
+    {
+        List<Ray> ret = new ArrayList<Ray>();
+        double x_step = upLeft.distance(upRight)/x;
+        double y_step = upLeft.distance(downLeft)/y;
+        Vector x_vec=downRight.subtract(downLeft).normalize();
+        Vector y_vec= upLeft.subtract(downLeft).normalize();
+        for (int i =0;i<x;i++)
+            for (int j=0;j<y;j++)
+            {
+                Point3D p = downLeft;
+                if (i!=0)
+                     p = p.add(x_vec.scale(x_step*i));
+                if (j!=0)
+                    p = p.add(y_vec.scale(y_step*j));
+                Vector vec = p.subtract(p0);
+                ret.add(new Ray(p0,vec));
+            }
+        return  ret;
     }
 
 }

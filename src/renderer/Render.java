@@ -2,8 +2,13 @@ package renderer;
 
 import elements.Camera;
 import primitives.Color;
+import primitives.Point3D;
+import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.MissingResourceException;
 
 /**
@@ -42,11 +47,35 @@ public class Render  {
         for (int i=0;i<x;i++)
             for(int j=0;j<y;j++)
             {
-                var ray = cam.constructRayThroughPixel(x,y,i,j);
-                var col= rayTracerBasic.traceRay(ray);
+                var rays = cam.constructsRaysThroughPixel(x,y,i,j);
+                var col= calcAverageColor(rays);
+                //var ray = cam.constructRayThroughPixel(x,y,i,j);
+                //var col = rayTracerBasic.traceRay(ray);
                 image.writePixel(i,j,col);
             }
     }
+
+
+    /**
+     * his responsible is to take a list of rays and calculate average of they color
+     * @param list the list of ray
+     * @return the average color of the ray
+     */
+    private Color calcAverageColor(List<Ray> list)
+    {
+        int size = list.size();
+        Color sum = new Color(0,0,0);
+        for (var i :list) {
+            sum = sum.add(rayTracerBasic.traceRay(i));
+        }
+        return  sum.scale((double) 1/size);
+    }
+
+
+    /**
+     * @param interval
+     * @param color
+     */
     public void printGrid(int interval, Color color)
     {
         //do grid on picture

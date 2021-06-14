@@ -2,6 +2,9 @@ package primitives;
 
 import java.util.Objects;
 
+/**
+ * a point with three coordinates
+ */
 public class Point3D {
 
     public static final Point3D ZERO = new Point3D(0,0,0);

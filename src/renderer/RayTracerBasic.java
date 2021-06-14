@@ -48,6 +48,7 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * return true if the point is not shaded and have a clean straight line to light source
+     * if not it returns the transparency value of the geometry in the way.
      * @param light
      * @param l
      * @param n for the add delta
@@ -56,6 +57,7 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
         Vector lightDirection = l.scale(-1); // from point to light source
+        //adding a very small distance from the geometry to avoid intersections with the geometry itself.
         var addi= n.scale(DELTA);
         Ray lightRay =  constructRefractedRay(geopoint.point , lightDirection,n);
         double lightDistance = light.getDistance(geopoint.point);
@@ -86,6 +88,7 @@ public class RayTracerBasic extends RayTracerBase {
          *  due model pong
          * 𝒌𝑫 ∙ |𝒍 ∙ 𝒏 |∙ 𝑰a+𝒌𝑺 ∙( 𝒎𝒂𝒙 𝟎, −𝒗 ∙ 𝒓)^(n*sh)*ia
          */
+        //for each light source we check the reflection of the light on the geometry
         for (var i :scene.lights)
         {
             var material=p.geometry.getMaterial();
@@ -121,12 +124,15 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcColor (GeoPoint p, Ray R,int level,double k)
     {
+        // adds all the emissions and the ambient.
         Vector V = R.getDir();
         var ambientLight=  scene.getAmbientLight();
         var intensity = ambientLight.getIntensity();
         var color = intensity.add(p.geometry.getEmission());
+        //adds the local effects to the color which is all the light sources effects on the geometry
         Color local= calcLocalEffects(p,R,k);
         color= color.add(local);
+        // adds the local effects like reflection and refraction, first it checks the level.
         color = (1 == level) ? color : color.add(calcGlobalEffects(p, R.getDir(), level, k));
         return color;
     }
@@ -140,9 +146,11 @@ public class RayTracerBasic extends RayTracerBase {
      * @return
      */
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
+
         Color color = Color.BLACK; Vector n = gp.geometry.getNormal(gp.point);
         Material material = gp.geometry.getMaterial();
         double kkr = k * material.kR;
+        // takes the kkt and kkr and returns the global effects according to their values.
         if (kkr > MIN_CALC_COLOR_K)
             color = calcGlobalEffect(constructReflectedRay(gp.point, v, n), level, material.kR, kkr);
         double kkt = k * material.kT;
@@ -152,17 +160,16 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
-    /**
+    /** constructs the refracted ray to create the global effects
      * @param point
      * @param v
      * @param n
      * @return RefractedRay
      */
     private Ray constructRefractedRay(Point3D point, Vector v, Vector n) {
-
-        //Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
+// adds the delta constant to the head point of the ray
         Vector addition = n.scale(DELTA);
-
+// two cases to understand where to put the additional delta constant.
         if(v.dotProduct(n) < 0)
             return new Ray(point.add(addition.scale(-1)) , v);
 
@@ -170,15 +177,17 @@ public class RayTracerBasic extends RayTracerBase {
             return new Ray(point.add(addition), v);
     }
 
-    /**
+    /** constructs the reflected ray to create the global effects
      * @param point
      * @param v
      * @param n
      * @return ReflectedRay
      */
     private Ray constructReflectedRay(Point3D point, Vector v, Vector n) {
+        // adds the delta constant to the head point of the ray
         Vector addition = n.scale(DELTA);
 
+        // two cases to understand where to put the additional delta constant. also we change the direction of the ray itself
         if(v.dotProduct(n) < 0)
             return new Ray(point.add(addition) , v.subtract((n.scale(v.dotProduct(n) *2))));
 
@@ -213,7 +222,9 @@ public class RayTracerBasic extends RayTracerBase {
         double assist = Double.POSITIVE_INFINITY, temp;
         var contain = scene.geometries.findGeoIntersections(ray);
         if (contain==null)return null;
+
         for (var n:contain) {
+            // each and every time we check wether the current intersection is closer to the rays head the the previous closest.
             temp = source.distance(n.point);
             if(temp < assist){
                 assist = temp;

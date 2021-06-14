@@ -114,6 +114,10 @@ public class Vector {
         return rettype;
     }
 
+    /**
+     * euclidic distance without the squrt
+     * @return
+     */
     public double lengthSquared () {
     var ret = head.x.coord *head.x.coord;
     ret += head.y.coord *head.y.coord;

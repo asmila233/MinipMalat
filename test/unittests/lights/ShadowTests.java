@@ -155,35 +155,89 @@ public class ShadowTests {
         render.renderImage();
         render.writeToImage();
     }
-
     @Test
     public void myTest() {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+        // size of wall
+        int size = 150;
 
-        scene.geometries.add( //
-                new Sphere(new Point3D(0, 0, 200), 5) // sphere for
-                        .setMaterial(new Material().setKs(0.8).setShininess(30).setKt(0.95)).setEmission(new Color(300,0,0)),
-                new Sphere(new Point3D(-50, 0, 0), 25) //
-                        .setMaterial(new Material().setKs(0.8).setkd(0.9).setShininess(30).setkd(0.9)).setEmission(new Color(0,150,0)), //
-                new Sphere(new Point3D(0, 50, 0), 25) //
-                        .setMaterial(new Material().setkd(0.9).setKs(0.5).setShininess(30)).setEmission(new Color(0,150,0)), //
-                new Sphere(new Point3D(50, 0, 0), 25) //
-                .setMaterial(new Material().setKs(0.8).setkd(0.9).setShininess(30)).setEmission(new Color(0,150,0)),
-                new Polygon(new Point3D(100,100,-75),new Point3D(-100,100,-100),new Point3D(100,-100,-100))
-                        .setEmission(new Color(java.awt.Color.black)).setMaterial(new Material().setKr(1).setKs(0.8).setkd(0.9).setShininess(30))
-                ,new Polygon(new Point3D(-100,-100,-75),new Point3D(-100,100,-100),new Point3D(100,-100,-100))
-                        .setEmission(new Color(java.awt.Color.black)).setMaterial(new Material().setKs(0.8).setkd(0.9).setKr(1).setShininess(30)));
+        // size of the light
+        int light = size/2;
 
+        // size of the light sphere
+        int sphere = size/10;
+
+        double e=  0.000001;
+
+        scene.geometries.add(
+                // we do a room
+
+                //wall 1
+                new Polygon(new Point3D(0,0,0),new Point3D(size,0,0),new Point3D(0,size,0))
+                        .setEmission(new Color(0,0,50)).setMaterial(new Material().setKs(0.8).setkd(0.9).setShininess(30))
+
+                ,new Polygon(new Point3D(size,size,0),new Point3D(size,0,0),new Point3D(0,size,0))
+                        .setEmission(new Color(0,0,50)).setMaterial(new Material().setKs(0.8).setkd(0.9).setShininess(30))
+
+                //wall2
+                ,new Polygon(new Point3D(0,0,0),new Point3D(size,0,0),new Point3D(0,0,size))
+                        .setEmission(new Color(0,0,0)).setMaterial(new Material().setKs(0.8).setkd(0.9).setKr(1).setShininess(30))
+
+                ,new Polygon(new Point3D(size,0,size),new Point3D(size,0,0),new Point3D(0,0,size))
+                        .setEmission(new Color(0,0,0)).setMaterial(new Material().setKs(0.8).setkd(0.9).setKr(1).setShininess(30))
+
+
+                //wall3
+                ,new Polygon(new Point3D(0,0,0),new Point3D(0,size,0),new Point3D(0,0,size))
+                        .setEmission(new Color(0,50,0)).setMaterial(new Material().setKs(0.8).setkd(0.9).setShininess(30))
+
+                ,new Polygon(new Point3D(0,size,size),new Point3D(0,size,0),new Point3D(0,0,size))
+                        .setEmission(new Color(0,50,0)).setMaterial(new Material().setKs(0.8).setkd(0.9).setShininess(30))
+
+
+                // tree of light each other is on other light
+
+                //blue
+
+                ,new Sphere(new Point3D(light, light, 0), 30) //
+                        .setEmission(new Color(0,0,400)) //
+                        .setMaterial(new Material().setkd(0.5).setKs(0.5).setShininess(30).setKt(0))
+                //red
+
+                ,new Sphere(new Point3D(light, 0, light), 30) //
+                        .setEmission(new Color(400,0,0)) //
+                        .setMaterial(new Material().setkd(0.5).setKs(0.5).setShininess(30).setKt(0))
+
+                //green
+
+                ,new Sphere(new Point3D(0, light, light), 30) //
+                        .setEmission(new Color(0,400,0)) //
+                        .setMaterial(new Material().setkd(0.5).setKs(0.5).setShininess(30).setKt(0))
+
+
+                // the effect
+
+                ,new Sphere(new Point3D(0, 0, 0), 30) //
+                        .setEmission(new Color(0,0,0)) //
+                        .setMaterial(new Material().setkd(0.5).setKs(0.5).setKr(1).setShininess(30)));
+
+        //blue= direction, red= spot, green= point
         scene.lights.add( //
-                new SpotLight(new Point3D(0, 0, 200), new Color(0, 0, 150), new Vector(0,0 , -1)) //
+                new SpotLight(new Point3D(light,e,light), new Color(300, 300, 300), new Vector(0,0 , -1)) //
                         .setKl(1E-5).setKq(1.5E-7));
 
+        scene.lights.add( //
+                new PointLight(new Point3D(light,light,e),new Color(150,150,150))//
+                        .setKl(1E-5).setKq(1.5E-7));
+        scene.lights.add( //
+                new DirectionalLight(new Vector(0,-1,0),new Color(150,150,150)));//
+
+        var camera1 = new Camera(new Point3D(800,800,800),new Vector(-1,-1,-1),new Vector(-1,1,0)).setDistance(1100).setViewPlaneSize(200,200);
         Render render = new Render() //
-                .setImageWriter(new ImageWriter("my test", 600, 600)) //
-                .setCamera(camera) //
+                .setImageWriter(new ImageWriter("my test1", 600, 600)) //
+                .setCamera(camera1) //
                 .setRayTracer(new RayTracerBasic(scene));
         render.renderImage();
         render.writeToImage();
     }
-
 }

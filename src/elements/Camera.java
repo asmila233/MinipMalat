@@ -138,7 +138,7 @@ public class Camera {
         // the calculate is from the center and we need to move from -0.5 until 0.5
         // the grid of ray is 8*8
         // we need to know the vector of grid up and down
-        var center = PixelIICenter( x,  y,  j,  i);
+        var center = PixelIICenter( x,  y,  i,  j);
         var dis_y = getSizeOfPixel_y(y);
         var dis_x = getSizeOfPixel_x(x);
         var upLeft= center.add(up.scale(dis_y/2)).add(right.scale(-dis_x/2));
@@ -147,14 +147,14 @@ public class Camera {
         var downRight= center.add(up.scale(-dis_y/2)).add(right.scale(dis_x/2));
         return Util.GridOf4Point(spot,upLeft,upRight,downLeft,downRight,x_rays_for_pixel,y_rays_for_pixel);
     }
-    public Ray constructRayThroughPixel(int nX, int nY, int j, int i)
+    public Ray constructRayThroughPixel(int nX, int nY, int i, int j)
     {
         //--------
         //do due the algorithm in "Recitation 4 - Camera, Ray Casting - upd. 23/04/21,page 12" at model
         //--------
 
         //Image center
-        Point3D pIj = PixelIICenter( nX,  nY,  j,  i);
+        Point3D pIj = PixelIICenter( nX,  nY,  i,  j);
 
         //𝒅𝒊𝒓𝒆𝒄𝒕𝒊𝒐𝒏
         Vector dirOFray= pIj.subtract(spot);

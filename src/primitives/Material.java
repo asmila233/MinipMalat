@@ -14,7 +14,7 @@ public class Material {
     public double kS,kD,kT,kR;
 
     int nShininess;
-
+// getters
     public double getks() {
         return kS;
     }
@@ -48,7 +48,7 @@ public class Material {
     }
 
     /**
-     *
+     * getter
      * @param kS
      * @return this
      */
@@ -58,7 +58,7 @@ public class Material {
     }
 
     /**
-     *
+     * setter
      * @param kd
      * @return this
      */
@@ -68,7 +68,7 @@ public class Material {
     }
 
     /**
-     *
+     *builder style setter
      * @param nShininess
      * @return this
      */

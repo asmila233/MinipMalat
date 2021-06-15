@@ -18,6 +18,12 @@ public class Camera {
     private static final int x_rays_for_pixel = 20;
     private static final int y_rays_for_pixel = 20;
 
+    /**
+     * constructor with the needed vectors and the source point
+     * @param spot
+     * @param to
+     * @param up
+     */
     public Camera( Point3D spot,Vector to, Vector up) {
         this.spot= spot;
         this.up = up;
@@ -94,6 +100,7 @@ public class Camera {
     }
 
     /**
+     * returns the exACT point of the middle of the pixel
      * @param nX
      * @param nY
      * @param j
@@ -147,6 +154,15 @@ public class Camera {
         var downRight= center.add(up.scale(-dis_y/2)).add(right.scale(dis_x/2));
         return Util.GridOf4Point(spot,upLeft,upRight,downLeft,downRight,x_rays_for_pixel,y_rays_for_pixel);
     }
+
+    /**
+     * returns a ray that comes from the light source and goes through the middle of the pixel
+     * @param nX
+     * @param nY
+     * @param i
+     * @param j
+     * @return
+     */
     public Ray constructRayThroughPixel(int nX, int nY, int i, int j)
     {
         //--------

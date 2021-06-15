@@ -71,6 +71,7 @@ public abstract class Util {
     }
 
     /**
+     * returns a list of rays of the whole pixel with even distribution
      * @param p0
      * @param upLeft
      * @param upRight

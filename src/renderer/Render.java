@@ -35,6 +35,7 @@ public class Render  {
 
     /**
      *     creates a ray for each pixel and checks what color there is on that pixel and writes it to the image
+     *     after the improvement the function sends various rays per pixel.
      */
     public void renderImage()
     {
@@ -73,8 +74,9 @@ public class Render  {
 
 
     /**
-     * @param interval
-     * @param color
+     * puts a grid on the picture
+     * @param interval how many rows how many columns
+     * @param color the color of the lines making the grid
      */
     public void printGrid(int interval, Color color)
     {
@@ -103,6 +105,10 @@ public class Render  {
                 image.writePixel(j,i*interval,color);
 
     }
+
+    /**
+     * puts the image in a file
+     */
     public void writeToImage()
     {
         if (image==null)

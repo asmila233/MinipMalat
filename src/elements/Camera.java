@@ -15,8 +15,8 @@ public class Camera {
     private Vector up;
     private Vector to;
     private Vector right;
-    private static final int x_rays_for_pixel = 20;
-    private static final int y_rays_for_pixel = 20;
+    private static final int x_rays_for_pixel = 8;
+    private static final int y_rays_for_pixel = 8;
 
     /**
      * constructor with the needed vectors and the source point

@@ -48,10 +48,10 @@ public class Render  {
         for (int i=0;i<x;i++)
             for(int j=0;j<y;j++)
             {
-                //var rays = cam.constructsRaysThroughPixel(x,y,i,j);
-                //var col= calcAverageColor(rays);
-                var ray = cam.constructRayThroughPixel(x,y,i,j);
-                var col = rayTracerBasic.traceRay(ray);
+                var rays = cam.constructsRaysThroughPixel(x,y,i,j);
+                var col= calcAverageColor(rays);
+                //var ray = cam.constructRayThroughPixel(x,y,i,j);
+                //var col = rayTracerBasic.traceRay(ray);
                 image.writePixel(i,j,col);
             }
     }

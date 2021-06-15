@@ -155,6 +155,9 @@ public class ShadowTests {
         render.renderImage();
         render.writeToImage();
     }
+
+
+
     @Test
     public void myTest() {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));

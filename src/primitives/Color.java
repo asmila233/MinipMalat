@@ -15,7 +15,6 @@ public class Color {
     private final double r;
     private final double g;
     private final double b;
-
     /**
      * Black color = (0,0,0)
      */

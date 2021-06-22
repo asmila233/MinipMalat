@@ -216,7 +216,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param ray
      * @return
      */
-    private GeoPoint findClosestIntersection(Ray ray){
+    public GeoPoint findClosestIntersection(Ray ray){
         Point3D source = ray.getPo();
         GeoPoint result = null;
         double assist = Double.POSITIVE_INFINITY, temp;

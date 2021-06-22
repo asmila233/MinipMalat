@@ -15,8 +15,8 @@ public class Camera {
     private Vector up;
     private Vector to;
     private Vector right;
-    private static final int x_rays_for_pixel = 8;
-    private static final int y_rays_for_pixel = 8;
+    private static final int x_rays_for_pixel = 9;
+    private static final int y_rays_for_pixel = 9;
 
     /**
      * constructor with the needed vectors and the source point
@@ -145,6 +145,27 @@ public class Camera {
         // the calculate is from the center and we need to move from -0.5 until 0.5
         // the grid of ray is 8*8
         // we need to know the vector of grid up and down
+//        var center = PixelIICenter( x,  y,  i,  j);
+//        var dis_y = getSizeOfPixel_y(y);
+//        var dis_x = getSizeOfPixel_x(x);
+//        var upLeft= center.add(up.scale(dis_y/2)).add(right.scale(-dis_x/2));
+//        var upRight= center.add(up.scale(dis_y/2)).add(right.scale(dis_x/2));
+//        var downLeft= center.add(up.scale(-dis_y/2)).add(right.scale(-dis_x/2));
+//        var downRight= center.add(up.scale(-dis_y/2)).add(right.scale(dis_x/2));
+
+       var ret= pointsOfPixel(x,y,i,j);
+        return Util.GridOf4Point(spot,ret.get(1),ret.get(0),ret.get(3),ret.get(2),x_rays_for_pixel,y_rays_for_pixel);
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @param i
+     * @param j
+     * @return
+     */
+    public List<Point3D> pointsOfPixel(int x ,int y,int i,int j)
+    {
         var center = PixelIICenter( x,  y,  i,  j);
         var dis_y = getSizeOfPixel_y(y);
         var dis_x = getSizeOfPixel_x(x);
@@ -152,7 +173,14 @@ public class Camera {
         var upRight= center.add(up.scale(dis_y/2)).add(right.scale(dis_x/2));
         var downLeft= center.add(up.scale(-dis_y/2)).add(right.scale(-dis_x/2));
         var downRight= center.add(up.scale(-dis_y/2)).add(right.scale(dis_x/2));
-        return Util.GridOf4Point(spot,upLeft,upRight,downLeft,downRight,x_rays_for_pixel,y_rays_for_pixel);
+
+        var ret = new ArrayList<Point3D>();
+        ret.add(0,upRight);
+        ret.add(1,upLeft);
+        ret.add(2,downRight);
+        ret.add(3,downLeft);
+
+        return ret;
     }
 
     /**
@@ -177,6 +205,19 @@ public class Camera {
 
         //return ray
         return  new Ray(spot,dirOFray);
+    }
+
+    /**
+     * this part is for project2
+     */
+    /**
+     * we calculate the point on view plane on other palace and we just want to get the ray
+     * @param p the point on the view plane
+     * @return the ray from the camera
+     */
+    public Ray getRayForPointOnTheViewPlane(Point3D p)
+    {
+        return new Ray(spot,p.subtract(spot));
     }
 
 }

@@ -163,18 +163,21 @@ public class Render {
     }
 
     /**
-     * @param a
-     * @param c
-     * @param g
-     * @param i
-     * @param level
-     * @return the color of pixel
+     * @param a bottom left corner of the pixel
+     * @param c bottom right corner of the pixel
+     * @param g upper left corner
+     * @param i upper right corner
+     * @param level limit on the number of times to perform the division
+     * @return the average color of the pixel after implementing super sampling
      */
     private Color calcColorOfPixelsOnSuperSamplingUpdate(Point3D a, Point3D c, Point3D g, Point3D i, int level) {
+        // checking if there is a geometries in the given points
         var aGeo = getGeometry(a);
         var cGeo = getGeometry(c);
         var gGeo = getGeometry(g);
         var iGeo = getGeometry(i);
+// calculating the distance and the vectors to get the other point required which is the center of the pixel
+// (the function that does it in the camera class is private)
 
         double distanceX = a.distance(c);
         double distanceY = a.distance(g);
@@ -187,12 +190,16 @@ public class Render {
         if (MAX_OF_LEVEL_OF_PIXEL == level) {
             return getColorOfPoint(e);
         }
-        // its okay because all the color is equals
+        // its okay because all the color equals
         else if (aGeo == null && cGeo == null && gGeo == null && iGeo == null) {
             return new Color(java.awt.Color.black);
-        } else if (aGeo == null || cGeo == null || gGeo == null || iGeo == null) {
+        } //not going through the previous condition but going through this means the returned color wont be the same
+        else if (aGeo == null || cGeo == null || gGeo == null || iGeo == null) {
             return splitPixelTo4Pixels(a, c, g, i, level + 1);
-        } else if (aGeo.equals(cGeo) && aGeo.equals(gGeo) && a.equals(iGeo)) {
+        }
+        // in a case where all the colors in the corners are equal we will return the color of the ray from the middle of the pixel,
+        // it supposed to be at the same color as the other rays from the corners of the pixel
+        else if (aGeo.equals(cGeo) && aGeo.equals(gGeo) && a.equals(iGeo)) {
             return getColorOfPoint(e);
         } else {
             return splitPixelTo4Pixels(a, c, g, i, level + 1);
@@ -201,29 +208,36 @@ public class Render {
     }
 
     /**
-     * @param a
-     * @param c
-     * @param g
-     * @param i
-     * @param level
-     * @return
+     * @param a bottom left corner of the pixel
+     * @param c bottom right corner of the pixel
+     * @param g upper left corner
+     * @param i upper right corner
+     * @param level limit on the number of times to perform the division
+     * @return the average color of the pixel.
      */
     private Color splitPixelTo4Pixels(Point3D a, Point3D c, Point3D g, Point3D i, int level) {
+        // finding the distances between the corners of the pixel and the vectors of the up and right directions
         double distanceX = a.distance(c);
         double distanceY = a.distance(g);
         Vector addXAxis = c.subtract(a).normalize().scale(distanceX / 2.0);
         Vector addYAxis = g.subtract(a).normalize().scale(distanceY / 2.0);
 
+        // finding all the required points to divide the given pixel to four parts
         var b = a.add(addXAxis);
         var d = a.add(addYAxis);
         var e = a.add(addXAxis).add(addYAxis);
         var f = c.add(addYAxis);
         var h = g.add(addXAxis);
 
+        // returning the divided four pixels to the main function
         var col1 = calcColorOfPixelsOnSuperSamplingUpdate(a, b, d, e, level);
         var col2 = calcColorOfPixelsOnSuperSamplingUpdate(b, c, e, f, level);
         var col3 = calcColorOfPixelsOnSuperSamplingUpdate(d, e, g, h, level);
         var col4 = calcColorOfPixelsOnSuperSamplingUpdate(e, f, h, i, level);
+
+        // if we got here it means we can already return the average color,
+        // because if we reached here it means we either got to the max level of partition,
+        // or all of those partitioned pixels had the same colors inside them
         return col1.add(col3, col2, col4).scale(0.25);
     }
 
@@ -232,6 +246,7 @@ public class Render {
      * @return the color of the ray
      */
     private Color getColorOfPoint(Point3D p) {
+        // we use the camera methods to get the ray and then we calculate the color to keep RDD principle
         var r = cam.getRayForPointOnTheViewPlane(p);
         return rayTracerBasic.traceRay(r);
     }
@@ -275,5 +290,30 @@ public class Render {
     {
         renderImage(2);
     }
+    // taken from slides
+    private int threadsNumber = 1;
+    private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
+    private boolean print = false; // printing progress percentage
+    /**
+     * Set multithreading <br>
+     * - if the parameter is 0 - number of coress less SPARE (2) is taken
+     * @param threads number of threads
+     * @return the Render object itself
+     */
+    public Render setMultithreading(int threads) {
+        if (threads < 0) throw new IllegalArgumentException("Multithreading must be 0 or higher");
+        if (threads != 0) threadsNumber = threads;
+        else {
+            int cores = Runtime.getRuntime().availableProcessors() - SPARE_THREADS;
+            threads = cores <= 2 ? 1 : cores;
+        }
+        return this;
+    }
+    /**
+     * Set debug printing on
+     * @return the Render object itself
+     */
+    public Render setDebugPrint() { print = true; return this; }
+
 
 }

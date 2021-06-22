@@ -84,10 +84,13 @@ public abstract class Util {
     public static List<Ray> GridOf4Point (Point3D p0,Point3D upLeft,Point3D upRight,Point3D downLeft,Point3D downRight,int x, int y )
     {
         List<Ray> ret = new ArrayList<Ray>();
+        // calculating how much we need to jump each time
         double x_step = upLeft.distance(upRight)/x;
         double y_step = upLeft.distance(downLeft)/y;
+        // calculating where we need to jump each time
         Vector x_vec=downRight.subtract(downLeft).normalize();
         Vector y_vec= upLeft.subtract(downLeft).normalize();
+        // creating X*X rays, with similar margins between each one
         for (int i =0;i<x;i++)
             for (int j=0;j<y;j++)
             {
@@ -96,6 +99,7 @@ public abstract class Util {
                      p = p.add(x_vec.scale(x_step*i));
                 if (j!=0)
                     p = p.add(y_vec.scale(y_step*j));
+                // the creation of the ray itself
                 Vector vec = p.subtract(p0);
                 ret.add(new Ray(p0,vec));
             }

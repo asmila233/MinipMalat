@@ -20,9 +20,9 @@ public class Camera {
 
     /**
      * constructor with the needed vectors and the source point
-     * @param spot
-     * @param to
-     * @param up
+     * @param spot the desired point to put the camera in
+     * @param to the vector to
+     * @param up the vector up
      */
     public Camera( Point3D spot,Vector to, Vector up) {
         this.spot= spot;
@@ -101,11 +101,11 @@ public class Camera {
 
     /**
      * returns the exACT point of the middle of the pixel
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
-     * @return
+     * @param nX the number of pixels on the width
+     * @param nY the number of pixels on the height
+     * @param j the index of the pixel you would like to find its center
+     * @param i the index of the pixel you would like to find its center
+     * @return the point of the middle of the pixel
      */
     private Point3D PixelIICenter(int nX, int nY, int j, int i)
     {
@@ -134,11 +134,11 @@ public class Camera {
     //methods
     /**
      * this responsible is to make a rays for one pixel
-     * @param x
-     * @param y
-     * @param i
-     * @param j
-     * @return
+     * @param x the number of pixels on the width
+     * @param y the number of pixels on the height
+     * @param i the index of the pixel you would like to find its center
+     * @param j the index of the pixel you would like to find its center
+     * @return a list of rays covering the whole pixel for super sampling
      */
     public List<Ray> constructsRaysThroughPixel(int x, int y, int i, int j)
     {
@@ -153,27 +153,32 @@ public class Camera {
 //        var downLeft= center.add(up.scale(-dis_y/2)).add(right.scale(-dis_x/2));
 //        var downRight= center.add(up.scale(-dis_y/2)).add(right.scale(dis_x/2));
 
+
+
        var ret= pointsOfPixel(x,y,i,j);
         return Util.GridOf4Point(spot,ret.get(1),ret.get(0),ret.get(3),ret.get(2),x_rays_for_pixel,y_rays_for_pixel);
     }
 
-    /**
-     * @param x
-     * @param y
-     * @param i
-     * @param j
-     * @return
+    /** calculates the four corners of a given pixel
+     * @param x the number of pixels on the width
+     * @param y the number of pixels on the height
+     * @param i the index of the pixel you would like to find its center
+     * @param j the index of the pixel you would like to find its center
+     * @return a list of the four corners of the pixel
      */
     public List<Point3D> pointsOfPixel(int x ,int y,int i,int j)
     {
+        // first we get the center of the pixel and the actual size of it
         var center = PixelIICenter( x,  y,  i,  j);
         var dis_y = getSizeOfPixel_y(y);
         var dis_x = getSizeOfPixel_x(x);
+        // we add the vectors to find the corners of the pixel
         var upLeft= center.add(up.scale(dis_y/2)).add(right.scale(-dis_x/2));
         var upRight= center.add(up.scale(dis_y/2)).add(right.scale(dis_x/2));
         var downLeft= center.add(up.scale(-dis_y/2)).add(right.scale(-dis_x/2));
         var downRight= center.add(up.scale(-dis_y/2)).add(right.scale(dis_x/2));
 
+        //returning the four corners points
         var ret = new ArrayList<Point3D>();
         ret.add(0,upRight);
         ret.add(1,upLeft);
@@ -185,11 +190,11 @@ public class Camera {
 
     /**
      * returns a ray that comes from the light source and goes through the middle of the pixel
-     * @param nX
-     * @param nY
-     * @param i
-     * @param j
-     * @return
+     * @param nX the number of pixels on the width
+     * @param nY the number of pixels on the height
+     * @param i the index of the pixel you would like to find its center
+     * @param j the index of the pixel you would like to find its center
+     * @return a ray going through the middle of the pixel
      */
     public Ray constructRayThroughPixel(int nX, int nY, int i, int j)
     {
@@ -211,7 +216,7 @@ public class Camera {
      * this part is for project2
      */
     /**
-     * we calculate the point on view plane on other palace and we just want to get the ray
+     * we calculate the point on view plane on other place and we just want to get the ray
      * @param p the point on the view plane
      * @return the ray from the camera
      */

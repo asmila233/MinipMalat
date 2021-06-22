@@ -1,6 +1,7 @@
 package scene;
 
 import elements.AmbientLight;
+import elements.Camera;
 import elements.LightSource;
 import geometries.Geometries;
 import primitives.Color;
@@ -57,5 +58,9 @@ public class Scene {
     public Scene setGeometries(Geometries geometries) {
         this.geometries = geometries;
         return this;
+    }
+
+    public Camera setCamera(Camera camera) {
+        return camera;
     }
 }

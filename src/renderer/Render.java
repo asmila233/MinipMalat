@@ -20,10 +20,13 @@ public class Render {
     ImageWriter image;
     Camera cam;
     RayTracerBasic rayTracerBasic;
-    private static final int MAX_OF_LEVEL_OF_PIXEL = 3;
-    //1->3X3
-    //2->5X5
-    //3->9X9
+    private static final int MAX_OF_LEVEL_OF_PIXEL = 4;
+    //0->1X1(we look just on center)
+    //1->2X2
+    //2->3X3
+    //3->5X5
+    //4->9X9
+
     //N->A(n-1)*2-1
 
     public Render setRayTracer(RayTracerBasic rayTracerBasic) {

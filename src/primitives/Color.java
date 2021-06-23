@@ -119,4 +119,15 @@ public class Color {
             throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
         return new Color(r / k, g / k, b / k);
     }
+
+    /**
+     * @param c the second color
+     * @return the distance between the two colors
+     */
+    public double distance(Color c) {
+        var g = Math.abs(this.g - c.g);
+        var r = Math.abs(this.r - c.r);
+        var b = Math.abs(this.b - c.b);
+        return g + r + b;
+    }
 }

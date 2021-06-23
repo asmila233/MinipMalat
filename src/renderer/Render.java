@@ -21,6 +21,8 @@ public class Render {
     Camera cam;
     RayTracerBasic rayTracerBasic;
     private static final int MAX_OF_LEVEL_OF_PIXEL = 4;
+    private static final double MAX_Distance_Between_Color = 30.0;
+
     //0->1X1(we look just on center)
     //1->2X2
     //2->3X3
@@ -175,41 +177,32 @@ public class Render {
      */
     private Color calcColorOfPixelsOnSuperSamplingUpdate(Point3D a, Point3D c, Point3D g, Point3D i, int level) {
         // checking if there is a geometries in the given points
-        var aGeo = getGeometry(a);
-        var cGeo = getGeometry(c);
-        var gGeo = getGeometry(g);
-        var iGeo = getGeometry(i);
+        var col1 = getColorOfPoint(a);
+        var col2 = getColorOfPoint(c);
+        var col3 = getColorOfPoint(g);
+        var col4 = getColorOfPoint(i);
 // calculating the distance and the vectors to get the other point required which is the center of the pixel
 // (the function that does it in the camera class is private)
 
-        double distanceX = a.distance(c);
-        double distanceY = c.distance(i);
-        Vector addXAxis = c.subtract(a).normalize().scale(distanceX / 2.0);
-        Vector addYAxis = g.subtract(a).normalize().scale(distanceY / 2.0);
-
-        var e = a.add(addXAxis).add(addYAxis);
-
         // we cant develop forever and we must to do average
-        if (MAX_OF_LEVEL_OF_PIXEL == level) {
-            return getColorOfPoint(e);
+        if (MAX_OF_LEVEL_OF_PIXEL == level||color_equals(col1,col2,col3,col4)) {
+            return col1.add(col3, col2, col4).scale(0.25);
         }
-        // its okay because all the color equals
-        else if (aGeo == null && cGeo == null && gGeo == null && iGeo == null) {
-            return new Color(java.awt.Color.black);
-        } //not going through the previous condition but going through this means the returned color wont be the same
-        else if (aGeo == null || cGeo == null || gGeo == null || iGeo == null) {
-            return splitPixelTo4Pixels(a, c, g, i, level + 1);
-        }
-        // in a case where all the colors in the corners are equal we will return the color of the ray from the middle of the pixel,
-        // it supposed to be at the same color as the other rays from the corners of the pixel
-        else if (aGeo.equals(cGeo) && aGeo.equals(gGeo) && aGeo.equals(iGeo)) {
-            return getColorOfPoint(e);
-        } else {
+         else {
             return splitPixelTo4Pixels(a, c, g, i, level + 1);
         }
 
     }
 
+    private Boolean color_equals(Color...colors)
+    {
+        double sum=0.0;
+        var center= colors[0];
+        for (var col:colors) {
+           sum+= center.distance(col);
+        }
+        return sum<MAX_Distance_Between_Color;
+    }
     /**
      * @param a bottom left corner of the pixel
      * @param c bottom right corner of the pixel
@@ -253,6 +246,7 @@ public class Render {
         var r = cam.getRayForPointOnTheViewPlane(p);
         return rayTracerBasic.traceRay(r);
     }
+
 
     /**
      * @param p the point on the view plane

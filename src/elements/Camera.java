@@ -15,8 +15,8 @@ public class Camera {
     private Vector up;
     private Vector to;
     private Vector right;
-    private static final int x_rays_for_pixel = 9;
-    private static final int y_rays_for_pixel = 9;
+    private static final int x_rays_for_pixel = 33;
+    private static final int y_rays_for_pixel = 33;
 
     /**
      * constructor with the needed vectors and the source point
@@ -26,8 +26,8 @@ public class Camera {
      */
     public Camera( Point3D spot,Vector to, Vector up) {
         this.spot= spot;
-        this.up = up;
-        this.to = to;
+        this.up = up.normalize();
+        this.to = to.normalize();
         if (!Util.isZero(up.dotProduct(to)))
             throw new IllegalArgumentException("illegal parameters");
         right = to.crossProduct(up).normalize();
@@ -179,7 +179,7 @@ public class Camera {
         var downRight= center.add(up.scale(-dis_y/2)).add(right.scale(dis_x/2));
 
         //returning the four corners points
-        var ret = new ArrayList<Point3D>();
+        var ret = new ArrayList<Point3D>(4);
         ret.add(0,upRight);
         ret.add(1,upLeft);
         ret.add(2,downRight);

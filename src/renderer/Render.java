@@ -180,7 +180,7 @@ public class Render {
 // (the function that does it in the camera class is private)
 
         double distanceX = a.distance(c);
-        double distanceY = a.distance(g);
+        double distanceY = c.distance(i);
         Vector addXAxis = c.subtract(a).normalize().scale(distanceX / 2.0);
         Vector addYAxis = g.subtract(a).normalize().scale(distanceY / 2.0);
 
@@ -199,7 +199,7 @@ public class Render {
         }
         // in a case where all the colors in the corners are equal we will return the color of the ray from the middle of the pixel,
         // it supposed to be at the same color as the other rays from the corners of the pixel
-        else if (aGeo.equals(cGeo) && aGeo.equals(gGeo) && a.equals(iGeo)) {
+        else if (aGeo.equals(cGeo) && aGeo.equals(gGeo) && aGeo.equals(iGeo)) {
             return getColorOfPoint(e);
         } else {
             return splitPixelTo4Pixels(a, c, g, i, level + 1);
